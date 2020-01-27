@@ -75,7 +75,7 @@ all:
 
     #### Confluent Server vs Confluent Kafka ####
     ## Confluent Server will be installed by default, to install confluent-kafka instead, uncomment the below
-    confluent_server_enabled: false
+    # confluent_server_enabled: false
 
     #### Schema Validation ####
     ## Schema Validation with the kafka configuration is disabled by default. To enable uncomment this line:
@@ -100,12 +100,12 @@ all:
          ssl_enabled: false
          ssl_mutual_auth_enabled: false
          sasl_protocol: none
-       external:
-         name: EXTERNAL
-         port: 9092
-         ssl_enabled: true
-         ssl_mutual_auth_enabled: true
-         sasl_protocol: scram
+    #   external:
+    #     name: EXTERNAL
+    #     port: 9092
+    #     ssl_enabled: true
+    #     ssl_mutual_auth_enabled: false
+    #     sasl_protocol: scram
     ## You can even add additional listeners, make sure all variables are set
     #   client_listener:
     #     name: CLIENT
