@@ -1,0 +1,11 @@
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_user: ubuntu
+    ansible_become: true
+    ansible_ssh_private_key_file: ~/.ssh/purbon-ireland.pem
+ldap:
+  hosts:
+    ec2-34-254-89-237.eu-west-1.compute.amazonaws.com:
+      openldap_base: 'dc=confluent,dc=local'
+      pri_domain_name: confluent.local
