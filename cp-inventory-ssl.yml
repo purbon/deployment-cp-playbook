@@ -127,8 +127,8 @@ all:
     # schema_registry:
     #   properties:
     #     key: val
-    control_center:
-       properties:
+    #control_center:
+  #     properties:
          #confluent.controlcenter.rest.authentication.method: BASIC
          #confluent.controlcenter.rest.authentication.realm: c3
          #confluent.controlcenter.rest.authentication.roles: Administrators,Restricted
