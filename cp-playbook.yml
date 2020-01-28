@@ -68,6 +68,15 @@
   - import_role:
       name: confluent.kafka_rest
 
+- name: Control Center Setup
+  hosts: control_center-setup
+  gather_facts: no
+  tags:
+    - control_center-setup
+  tasks:
+  - import_role:
+      name: confluent.control_center-setup
+
 - name: Control Center Provisioning
   hosts: control_center
   gather_facts: no
