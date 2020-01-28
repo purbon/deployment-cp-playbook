@@ -1,6 +1,6 @@
 ---
 # tasks file for confluent.control_center-setup
- name: Create confluent control center directory for BASIC auth
+- name: Create confluent control center directory for BASIC auth
   file:
     path: /tmp/confluent
     state: directory
