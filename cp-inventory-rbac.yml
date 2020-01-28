@@ -160,6 +160,32 @@ all:
          confluent.metadata.bootstrap.servers: INTERNAL://{inventory_hostname}:9091
          confluent.metadata.sasl.mechanism: PLAIN
          confluent.metadata.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required \  username="mds" \ password="mds-secret";
+         confluent.metadata.topic.replication.factor: 3
+         confluent.metadata.server.authentication.mehod: BEARER
+         confluent.metadata.server.authentication.roles: '**'
+         confluent.metadata.server.listeners: http://0.0.0.0:8090
+         confluent.metadata.server.advertised.listeners: http://{inventory_hostname}:8090
+         confluent.metadata.server.token.auth.enable: 'true'
+         confluent.metadata.server.token.max.lifetime.ms: 3600000
+         confluent.metadata.server.token.signature.algorithm: RS256
+         confluent.metadata.server.token.key.path: /tmp/conf/keypair.pem
+         confluent.metadata.server.token.public.key.path: /tmp/conf/public.pem
+         confluent.authorizer.access.rule.providers: CONFLUENT,ZK_ACL
+         confluent.authorizer.group.providers: RBAC
+         ldap.java.naming.factory.initial: com.sun.jndi.ldap.LdapCtxFactory
+         ldap.com.sun.jndi.ldap.read.timeout: 3000
+         ldap.java.naming.provider.url: ldap://{ldap_host}:389
+         ldap.java.naming.security.principal: cn=admin,dc=planetexpress,dc=com
+         ldap.java.naming.security.credentials: GoodNewsEveryone
+         ldap.java.naming.security.authentication: simple
+         ldap.user.search.base: ou=people,dc=planetexpress,dc=com
+         ldap.group.search.base: ou=people,dc=planetexpress,dc=com
+         ldap.user.name.attribute: uid
+         ldap.user.object.class: inetOrgPerson
+         ldap.user.memberof.attribute: ou
+         ldap.group.name.attribute: cn
+         ldap.group.object.class: group
+
     # schema_registry:
     #   properties:
     #     key: val
