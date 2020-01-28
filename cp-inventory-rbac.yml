@@ -190,11 +190,16 @@ all:
     #   properties:
     #     key: val
     control_center:
-      properties:
-         confluent.controlcenter.rest.authentication.method: BASIC
-         confluent.controlcenter.rest.authentication.realm: c3
-         confluent.controlcenter.rest.authentication.roles: Administrators,Restricted
-         confluent.controlcenter.auth.restricted.roles: Restricted
+       properties:
+         rest.authentication.method: BEARER
+         public.key.path: /tmp/conf/public.pem
+         confluent.metadata.basic.auth.user.info: hermes:hermes
+         confluent.metadata.bootstrap.server.urls: {% for listener in kafka_broker_listeners|dict2items %}{% if loop.index > 1%},{% endif %}{{ listener['value']['name'] }}://{{ listener['value']['hostname'] | default('') }}:{{ listener['value']['port'] }}{% endfor %}
+         streams.security.protocol: SASL_PLAINTEXT
+         streams.sasl.mechanism: OAUTHBEARER
+         streams.sasl.login.callback.handler.class: io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+         streams.sasl.jaas.config: org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \ username="hermes" \ password="hermes" \ metadataServerUrls="http://ip-172-31-23-186.eu-west-1.compute.internal:8090";
+
     # kafka_connect:
     #   properties:
     #     key: val
@@ -231,19 +236,9 @@ kafka_broker:
       # broker_id: 2
     ip-172-31-14-232.eu-west-1.compute.internal:
       # broker_id: 1
-kafka_connect:
-  hosts:
-    ip-172-31-18-93.eu-west-1.compute.internal:
-      ## For kerberos sasl protocol, EACH host will need these two variables:
-      # kafka_connect_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/connect-ip-172-31-34-246.us-east-2.compute.internal
-      # kafka_connect_kerberos_principal: The principal configured in kdc server ex: connect/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-control_center-setup:
-  hosts:
-    ip-172-31-26-46.eu-west-1.compute.internal:
 control_center:
   hosts:
     ip-172-31-26-46.eu-west-1.compute.internal:
-      control_center_custom_java_args: "-Djava.security.auth.login.config=/etc/confluent-control-center/propertyfile.conf"
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # control_center_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/controlcenter-ip-172-31-37-15.us-east-2.compute.internal
       # control_center_kerberos_principal: The principal configured in kdc server ex: controlcenter/ip-172-31-37-15.us-east-2.compute.internal@REALM.EXAMPLE.COM>
