@@ -129,10 +129,10 @@ all:
     #     key: val
     control_center:
        properties:
-         confluent.controlcenter.rest.authentication.method: BASIC
-         confluent.controlcenter.rest.authentication.realm: c3
-         confluent.controlcenter.rest.authentication.roles: Administrators,Restricted
-         confluent.controlcenter.auth.restricted.roles: Restricted
+         #confluent.controlcenter.rest.authentication.method: BASIC
+         #confluent.controlcenter.rest.authentication.realm: c3
+         #confluent.controlcenter.rest.authentication.roles: Administrators,Restricted
+         #confluent.controlcenter.auth.restricted.roles: Restricted
     # kafka_connect:
     #   properties:
     #     key: val
