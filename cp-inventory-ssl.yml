@@ -122,7 +122,7 @@ all:
          initLimit: 6
          syncLimit: 3
 
-    kafka_broker_custom_java_args: "-Djdk.tls.rejectClientInitiatedRenegotiation=true"
+    kafka_broker_custom_java_args: "-Djdk.tls.rejectClientInitiatedRenegotiation=true -Djdk.tls.disabledAlgorithms=\"MD5, SHA1, DSA, RSA keySize < 4096\""
 
     kafka_broker:
        properties:
