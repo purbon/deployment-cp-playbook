@@ -127,6 +127,9 @@ all:
     kafka_broker:
        properties:
          num.io.threads: 15
+         ssl.secure.random.implementation: NativePRNGNonBlocking
+         ssl.enabled.protocols: TLSv1.2
+
     # schema_registry:
     #   properties:
     #     key: val
