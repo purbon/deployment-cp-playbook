@@ -175,9 +175,9 @@ kafka_connect:
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # kafka_connect_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/connect-ip-172-31-34-246.us-east-2.compute.internal
       # kafka_connect_kerberos_principal: The principal configured in kdc server ex: connect/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-control_center-setup:
-  hosts:
-    ip-172-31-19-215.eu-west-1.compute.internal:
+#control_center-setup:
+#  hosts:
+#    ip-172-31-19-215.eu-west-1.compute.internal:
 control_center:
   hosts:
     ip-172-31-19-215.eu-west-1.compute.internal:
