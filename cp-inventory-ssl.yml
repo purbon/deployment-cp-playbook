@@ -55,7 +55,7 @@ all:
     # jolokia_jar_url: http://<inteneral-server>/jolokia-jvm-1.6.2-agent.jar
     ## JMX Exporter is disabled by default. When enabled, JMX Exporter jar will be pulled from the Internet and enabled on the broker *only*.
     ## To enable, uncomment this line:
-     jmxexporter_enabled: false
+    jmxexporter_enabled: false
     ## To update that jar download set this var
     # jmxexporter_jar_url: http://<internal-server>/jmx_prometheus_javaagent-0.12.0.jar
 
