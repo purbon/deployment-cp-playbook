@@ -26,9 +26,9 @@ all:
 
     #### TLS Configuration ####
     ## By default, data will NOT be encrypted. To turn on TLS encryption, uncomment this line
-     ssl_enabled: true
+    ssl_enabled: true
     ## By default, the components will be configured with One-Way TLS, to turn on TLS mutual auth, uncomment this line:
-     ssl_mutual_auth_enabled: true
+    ssl_mutual_auth_enabled: true
     ## By default, the certs for this configuration will be self signed, to deploy custom certificates there are two options.
     ## Option 1: Custom Certs
     ## You will need to provide the path to the Certificate Authority Cert used to sign each hosts' certs
