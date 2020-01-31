@@ -135,7 +135,7 @@ all:
            RULE:^CN=ip-172-31-18-9.eu-west-1.compute.internal,.*$/kafka/L,
            RULE:^CN=(.*?),.*$/$1/L,
            DEFAULT
-         super.users: User:ip-172-31-18-9.eu-west-1.compute.internal
+         super.users: User:kafka
     # schema_registry:
     #   properties:
     #     key: val
