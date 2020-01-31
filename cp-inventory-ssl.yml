@@ -105,7 +105,7 @@ all:
          port: 9092
          ssl_enabled: true
          ssl_mutual_auth_enabled: true
-         sasl_protocol: scram
+         sasl_protocol: none
     ## You can even add additional listeners, make sure all variables are set
     #   client_listener:
     #     name: CLIENT
