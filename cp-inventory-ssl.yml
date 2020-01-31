@@ -26,9 +26,9 @@ all:
 
     #### TLS Configuration ####
     ## By default, data will NOT be encrypted. To turn on TLS encryption, uncomment this line
-    # ssl_enabled: true
+     ssl_enabled: true
     ## By default, the components will be configured with One-Way TLS, to turn on TLS mutual auth, uncomment this line:
-    # ssl_mutual_auth_enabled: true
+     ssl_mutual_auth_enabled: true
     ## By default, the certs for this configuration will be self signed, to deploy custom certificates there are two options.
     ## Option 1: Custom Certs
     ## You will need to provide the path to the Certificate Authority Cert used to sign each hosts' certs
@@ -50,12 +50,12 @@ all:
     #### Monitoring Configuration ####
     ## Jolokia is enabled by default. The Jolokia jar gets pulled from the internet and enabled on all the components
     ## To disable, uncomment this line:
-    # jolokia_enabled: false
+    jolokia_enabled: false
     ## During setup, the hosts will download the jolokia agent jar from Maven. To update that jar download set this var
     # jolokia_jar_url: http://<inteneral-server>/jolokia-jvm-1.6.2-agent.jar
     ## JMX Exporter is disabled by default. When enabled, JMX Exporter jar will be pulled from the Internet and enabled on the broker *only*.
     ## To enable, uncomment this line:
-    # jmxexporter_enabled: true
+     jmxexporter_enabled: false
     ## To update that jar download set this var
     # jmxexporter_jar_url: http://<internal-server>/jmx_prometheus_javaagent-0.12.0.jar
 
@@ -93,19 +93,19 @@ all:
     # kafka_broker_configure_additional_brokers: false
     ## By default both of these listeners will follow whatever you set for ssl_enabled and sasl_protocol.
     ## To configure different security settings on the internal and external listeners set the following variables:
-    kafka_broker_custom_listeners:
-       internal:
-         name: INTERNAL
-         port: 9091
-         ssl_enabled: false
-         ssl_mutual_auth_enabled: false
-         sasl_protocol: none
-       external:
-         name: EXTERNAL
-         port: 9092
-         ssl_enabled: true
-         ssl_mutual_auth_enabled: true
-         sasl_protocol: none
+#    kafka_broker_custom_listeners:
+#       internal:
+#         name: INTERNAL
+#         port: 9091
+#         ssl_enabled: false
+#         ssl_mutual_auth_enabled: false
+#         sasl_protocol: none
+#       external:
+#         name: EXTERNAL
+#         port: 9092
+#         ssl_enabled: true
+#         ssl_mutual_auth_enabled: true
+#         sasl_protocol: none
     ## You can even add additional listeners, make sure all variables are set
     #   client_listener:
     #     name: CLIENT
