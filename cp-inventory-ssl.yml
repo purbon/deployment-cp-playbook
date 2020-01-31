@@ -131,8 +131,8 @@ all:
          ssl.enabled.protocols: TLSv1.2
          authorizer.class.name: kafka.security.auth.SimpleAclAuthorizer
          allow.everyone.if.no.acl.found: false
-         super.users: User:kafka
-
+         super.users: User:ip-172-31-18-9.eu-west-1.compute.internal
+         ssl.principal.mapping.rules: RULE:^CN=(.*?),OU=(.*?),O=(.*?),L=(.*?),ST=(.*?),C=(.*?)$/$1/L,DEFAULT
     # schema_registry:
     #   properties:
     #     key: val
