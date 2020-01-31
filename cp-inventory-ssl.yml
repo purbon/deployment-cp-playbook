@@ -132,6 +132,7 @@ all:
          authorizer.class.name: kafka.security.auth.SimpleAclAuthorizer
          allow.everyone.if.no.acl.found: false
          ssl.principal.mapping.rules: |
+           RULE:^CN=ip-172-31-18-9.eu-west-1.compute.internal,.*$/kafka/L,
            RULE:^CN=(.*?),.*$/$1/L,
            DEFAULT
          super.users: User:ip-172-31-18-9.eu-west-1.compute.internal
