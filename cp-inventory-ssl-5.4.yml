@@ -30,6 +30,7 @@ all:
     #   realm: <KDC server realm eg. confluent.example.com>
     #   kdc_hostname: <hostname of machine with KDC running eg. ip-172-31-45-82.us-east-2.compute.internal>
     #   admin_hostname: <hostname of machine with KDC running eg. ip-172-31-45-82.us-east-2.compute.internal>
+    kerberos_configure: false
 
     #### TLS Configuration ####
     ## By default, data will NOT be encrypted. To turn on TLS encryption, uncomment this line
