@@ -1,3 +1,0 @@
-[submodule "cp-ansible"]
-	path = cp-ansible
-	url = https://github.com/purbon/cp-ansible.git
