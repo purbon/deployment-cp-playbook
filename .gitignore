@@ -1,3 +1,2 @@
-cp-ansible
 *.pyc
 generated_ssl_files/
