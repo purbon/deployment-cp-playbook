@@ -100,12 +100,12 @@ all:
          ssl_enabled: false
          ssl_mutual_auth_enabled: false
          sasl_protocol: none
-    #   external:
-    #     name: EXTERNAL
-    #     port: 9092
-    #     ssl_enabled: true
-    #     ssl_mutual_auth_enabled: true
-    #     sasl_protocol: scram
+       external:
+         name: EXTERNAL
+         port: 9092
+         ssl_enabled: false
+         ssl_mutual_auth_enabled: false
+         sasl_protocol: none
     ## You can even add additional listeners, make sure all variables are set
     #   client_listener:
     #     name: CLIENT
@@ -142,39 +142,39 @@ all:
 
 zookeeper:
   hosts:
-    ip-172-31-25-137.eu-west-1.compute.internal:
+    ip-172-31-29-185.eu-west-1.compute.internal:
       ## By default the first host will get zookeeper id=1, second gets id=2. Set zookeeper_id to customize
       # zookeeper_id: 2
 
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # zookeeper_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/zookeeper-ip-172-31-34-246.us-east-2.compute.internal.keytab>
       # zookeeper_kerberos_principal: <The principal configured in kdc server, eg. zookeeper/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-    ip-172-31-47-172.eu-west-1.compute.internal:
+    ip-172-31-39-208.eu-west-1.compute.internal:
       # zookeeper_id: 3
-    ip-172-31-12-234.eu-west-1.compute.internal:
+    ip-172-31-15-129.eu-west-1.compute.internal:
       # zookeeper_id: 1
 kafka_broker:
   hosts:
-    ip-172-31-23-186.eu-west-1.compute.internal:
+    ip-172-31-22-93.eu-west-1.compute.internal:
       ## By default the first host will get broker id=1, second gets id=2. Set broker_id to customize
       # broker_id: 3
 
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # kafka_broker_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/ip-172-31-34-246.us-east-2.compute.internal>
       # kafka_broker_kerberos_principal: <The principal configured in kdc server, eg. kafka/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-    ip-172-31-45-247.eu-west-1.compute.internal:
+    ip-172-31-36-237.eu-west-1.compute.internal:
       # broker_id: 2
-    ip-172-31-14-232.eu-west-1.compute.internal:
+    ip-172-31-13-143.eu-west-1.compute.internal:
       # broker_id: 1
 kafka_connect:
   hosts:
-    ip-172-31-18-93.eu-west-1.compute.internal:
+    ip-172-31-31-147.eu-west-1.compute.internal:
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # kafka_connect_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/connect-ip-172-31-34-246.us-east-2.compute.internal
       # kafka_connect_kerberos_principal: The principal configured in kdc server ex: connect/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
 control_center:
   hosts:
-    ip-172-31-26-46.eu-west-1.compute.internal:
+    ip-172-31-26-210.eu-west-1.compute.internal:
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # control_center_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/controlcenter-ip-172-31-37-15.us-east-2.compute.internal
       # control_center_kerberos_principal: The principal configured in kdc server ex: controlcenter/ip-172-31-37-15.us-east-2.compute.internal@REALM.EXAMPLE.COM>
