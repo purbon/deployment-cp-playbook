@@ -15,7 +15,7 @@ all:
     #### SASL Authentication Configuration ####
     ## By default there will be no SASL Authentication
     ## For SASL/PLAIN uncomment this line:
-    sasl_protocol: plain
+    # sasl_protocol: plain
     ## For SASL/SCRAM uncomment this line:
     # sasl_protocol: scram
     ## For SASL/GSSAPI uncomment this line and see Kerberos Configuration properties below
@@ -156,9 +156,9 @@ all:
 
 zookeeper:
   hosts:
-    ip-172-31-29-185.eu-west-1.compute.internal:
-    ip-172-31-39-208.eu-west-1.compute.internal:
-    ip-172-31-15-129.eu-west-1.compute.internal:
+    ip-172-31-27-189.eu-west-1.compute.internal:
+    ip-172-31-33-72.eu-west-1.compute.internal:
+    ip-172-31-33-72.eu-west-1.compute.internal:
 
 kafka_broker:
   ## To apply variables specifically to the hosts within kafka_broker group, you can add a vars block like below
@@ -169,7 +169,7 @@ kafka_broker:
   #     datadir:
   #       - /var/lib/kafka/my-data
   hosts:
-    ip-172-31-22-93.eu-west-1.compute.internal:
+    ip-172-31-24-179.eu-west-1.compute.internal:
       ## By default the first host will get broker id=1, second gets id=2. Set broker_id to customize
       # broker_id: 3
 
@@ -183,13 +183,13 @@ kafka_broker:
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # kafka_broker_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/ip-172-31-34-246.us-east-2.compute.internal>
       # kafka_broker_kerberos_principal: <The principal configured in kdc server, eg. kafka/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-    ip-172-31-36-237.eu-west-1.compute.internal:
+    ip-172-31-36-142.eu-west-1.compute.internal:
       # broker_id: 2
       # kafka_broker:
       #   properties:
       #     broker.rack: us-east-1a
       #     replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-    ip-172-31-13-143.eu-west-1.compute.internal:
+    ip-172-31-9-137.eu-west-1.compute.internal:
       # broker_id: 1
       # kafka_broker:
       #   properties:
@@ -197,7 +197,7 @@ kafka_broker:
       #     replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
 kafka_connect:
   hosts:
-    ip-172-31-31-147.eu-west-1.compute.internal:
+    ip-172-31-28-57.eu-west-1.compute.internal:
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # kafka_connect_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/connect-ip-172-31-34-246.us-east-2.compute.internal
       # kafka_connect_kerberos_principal: The principal configured in kdc server ex: connect/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
@@ -225,7 +225,7 @@ kafka_connect:
 
 control_center:
   hosts:
-    ip-172-31-26-210.eu-west-1.compute.internal:
+    ec2-34-245-220-29.eu-west-1.compute.amazonaws.com:
       ## For kerberos sasl protocol, EACH host will need these two variables:
       # control_center_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/controlcenter-ip-172-31-37-15.us-east-2.compute.internal
       # control_center_kerberos_principal: The principal configured in kdc server ex: controlcenter/ip-172-31-37-15.us-east-2.compute.internal@REALM.EXAMPLE.COM>
