@@ -39,7 +39,6 @@ all:
       - confluent-kafka-connect-elasticsearch
       - confluent-kafka-connect-jdbc
       - confluent-kafka-connect-jms
-      - confluent-rest-utils
       - confluent-security
       - confluent-schema-registry
     #### TLS Configuration ####
