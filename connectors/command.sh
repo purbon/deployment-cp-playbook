@@ -10,3 +10,6 @@ curl -X DELETE http://ec2-54-171-57-190.eu-west-1.compute.amazonaws.com:8083/con
 curl -X POST -H "Content-Type: application/json" --data @json-sink-with-schema.json http://ip-172-31-28-57.eu-west-1.compute.internal:8083/connectors
 
 curl -X POST -H "Content-Type: application/json" --data @json-sink-without-schema.json http://ip-172-31-28-57.eu-west-1.compute.internal:8083/connectors
+
+
+curl -X POST -H "Content-Type: application/json" --data @config.json http://ip-172-31-28-57.eu-west-1.compute.internal:8083/connectors

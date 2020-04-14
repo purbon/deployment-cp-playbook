@@ -129,7 +129,7 @@ all:
     #     ssl_mutual_auth_enabled: true
     #     sasl_protocol: scram
     kafka_connect_connectors:
-      - name: "jdbc-trigger-offload-schema-magic"
+      - name: "jdbc-offload"
         config:
           key.converter.schemas.enable: "false"
           value.converter.schemas.enable: "true"
