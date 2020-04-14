@@ -1,0 +1,22 @@
+{
+	"name": "jdbc-trigger-offload-schema-magic",
+	"config": {
+    "schema.registry.url": "http://localhost:8081",
+    "value.converter.schema.registry.url": "http://localhost:8081",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "true",
+    "key.converter.schema.registry.url": "http://localhost:8081",
+    "name": "jdbc-trigger-offload-schema-magic",
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "com.purbon.kafka.connect.converters.JSONConverter",
+    "topics": "events",
+    "connection.url": "jdbc:mysql://ip-172-31-27-3.eu-west-1.compute.internal:3306/triggers",
+    "connection.user": "tolkien",
+    "connection.password": "confluent",
+    "dialect.name": "CustomMySQLDatabaseDialect",
+    "auto.create": "true",
+    "auto.evolve": "false"
+	}
+}
