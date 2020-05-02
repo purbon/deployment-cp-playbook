@@ -1,0 +1,9 @@
+- name: Kafka Broker Provisioning
+  hosts: localhost
+  tasks:
+  - import_role:
+      name: confluent.common
+  - import_role:
+      name: confluent.zookeeper
+  - import_role:
+      name: confluent.kafka_broker

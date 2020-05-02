@@ -1,2 +1,3 @@
-*.pyc
-generated_ssl_files/
+filter_plugins/
+.kitchen/
+.kitchen.local.yml

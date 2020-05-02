@@ -1,0 +1,47 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  build_context: true
+  privileged: true
+
+provisioner:
+  name: ansible_playbook
+  hosts:
+    - localhost
+  ansible_cfg_path: ./ansible.cfg
+  role_path: cp-ansible/roles:roles
+  require_ansible_repo: true
+  ansible_verbose: true
+  ansible_version: latest
+  require_chef_for_busser: false
+  #playbook: cp-playbook-5.4.yml
+  #ansible_inventory: cp-inventory-5.4.yml
+  ansible_connection: none
+  additional_copy_path:
+    - cp-ansible
+    - tasks
+  additional_copy_role_path:
+    - cp-ansible/roles
+
+platforms:
+  - name: ubuntu-18.04
+    driver_config:
+      image: ubuntu:18.04
+      privileged: true
+      provision_command:
+        - apt-get install -y gpg
+        - apt-get install -y -q ansible iproute2 python-jmespath
+      use_sudo: false
+      volume:
+        - /etc # This fixes certain java file actions that check the mount point. Without this adding users fails for some docker storage drivers
+      run_command: "/sbin/init"
+
+suites:
+  - name: default
+    provisioner:
+      #idempotency_test: true
+      playbook: test/integration/default.yaml
+    verifier:
+      inspec_tests:
+        - test/integration/default
