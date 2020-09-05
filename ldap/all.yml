@@ -1,0 +1,7 @@
+---
+- name: LDAP server provisioning
+  hosts: ldap
+  tags: ldap
+  tasks:
+  - import_role:
+      name:  openldap
