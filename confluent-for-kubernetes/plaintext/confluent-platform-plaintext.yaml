@@ -1,0 +1,100 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Zookeeper
+metadata:
+  name: zookeeper
+  namespace: cfkplain
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-zookeeper:7.1.0
+    init: confluentinc/confluent-init-container:2.3.0
+  dataVolumeCapacity: 10Gi
+  logVolumeCapacity: 10Gi
+  podTemplate:
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: cfkplain
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-server:7.1.0
+    init: confluentinc/confluent-init-container:2.3.0
+  dataVolumeCapacity: 10Gi
+  podTemplate:
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: cfkplain
+spec:
+  replicas: 2
+  image:
+    application: confluentinc/cp-server-connect:7.1.0
+    init: confluentinc/confluent-init-container:2.3.0
+  podTemplate:
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+---
+apiVersion: platform.confluent.io/v1beta1
+# Confluent Replicator is built as a connector, and so will use the `Connect` CRD.
+kind: Connect
+metadata:
+  name: replicator
+  namespace: cfkplain
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-enterprise-replicator:7.1.0
+    init: confluentinc/confluent-init-container:2.3.0
+  podTemplate:
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: KsqlDB
+metadata:
+  name: ksqldb
+  namespace: cfkplain
+spec:
+  replicas: 2
+  image:
+    application: confluentinc/cp-ksqldb-server:7.1.0
+    init: confluentinc/confluent-init-container:2.3.0
+  dataVolumeCapacity: 10Gi
+  podTemplate:
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: SchemaRegistry
+metadata:
+  name: schemaregistry
+  namespace: cfkplain
+spec:
+  replicas: 2
+  image:
+    application: confluentinc/cp-schema-registry:7.1.0
+    init: confluentinc/confluent-init-container:2.3.0
+  podTemplate:
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true

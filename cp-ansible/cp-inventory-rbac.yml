@@ -1,0 +1,71 @@
+---
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_user: ubuntu
+    ansible_become: true
+    ansible_ssh_private_key_file: ~/.ssh/ida_rsa_interaws
+
+    ssl_enabled: true
+    ssl_custom_certs: false
+
+    sasl_protocol: plain
+
+    ## RBAC Configuration
+    rbac_enabled: true
+
+    create_mds_certs: true
+
+    mds_super_user: professor
+    mds_super_user_password: professor
+    kafka_broker_ldap_user: professor
+    kafka_broker_ldap_password: professor
+    schema_registry_ldap_user: leela
+    schema_registry_ldap_password: leela
+    kafka_connect_ldap_user: fry
+    kafka_connect_ldap_password: fry
+    control_center_ldap_user: hermes
+    control_center_ldap_password: hermes
+
+    kafka_broker_custom_listeners:
+      client:
+        name: CLIENT
+        port: 9093
+
+zookeeper:
+  hosts:
+    ip-172-31-20-235.eu-west-1.compute.internal:
+    ip-172-31-39-131.eu-west-1.compute.internal:
+    ip-172-31-2-223.eu-west-1.compute.internal:
+
+kafka_broker:
+  vars:
+    # LDAP Configuration
+    kafka_broker_custom_properties:
+      ldap.java.naming.factory.initial: com.sun.jndi.ldap.LdapCtxFactory
+      ldap.com.sun.jndi.ldap.read.timeout: 3000
+      ldap.java.naming.provider.url: ldap://ip-172-31-31-174.eu-west-1.compute.internal:389
+      ldap.java.naming.security.principal: cn=admin,dc=purbon,dc=com
+      ldap.java.naming.security.credentials: password
+      ldap.java.naming.security.authentication: simple
+      ldap.user.search.base: OU=people,DC=purbon,DC=com
+      ldap.group.search.base: OU=people,DC=purbon,DC=com
+      ldap.user.name.attribute: uid
+      ldap.user.memberof.attribute.pattern: CN=(.*),OU=people,DC=purbon,DC=com
+      ldap.group.name.attribute: cn
+      ldap.group.member.attribute.pattern: CN=(.*),OU=people,DC=purbon,DC=com
+      ldap.user.object.class: person
+
+  hosts:
+    ip-172-31-28-69.eu-west-1.compute.internal:
+    ip-172-31-43-118.eu-west-1.compute.internal:
+    ip-172-31-4-86.eu-west-1.compute.internal:
+
+
+kafka_connect:
+  hosts:
+    ec2-3-249-46-249.eu-west-1.compute.amazonaws.com:
+
+control_center:
+  hosts:
+    ec2-34-254-254-227.eu-west-1.compute.amazonaws.com:

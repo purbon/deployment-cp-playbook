@@ -1,0 +1,5 @@
+{
+  "kafka": "kafka-secret",
+  "bob": "bob-secret",
+  "alice": "alice-secret"
+}
