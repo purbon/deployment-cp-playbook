@@ -3,7 +3,9 @@
   "hosts": [
     "connect",
     "connect.mydomain.example",
-    "connect.confluent.svc.cluster.local"
+    "connect.confluent.svc.cluster.local",
+    "connect.kafka-sasl-ssl-user.svc.cluster.local",
+    "connect.kafka-sasl-ssl.svc.cluster.local"
   ],
   "key": {
     "algo": "rsa",

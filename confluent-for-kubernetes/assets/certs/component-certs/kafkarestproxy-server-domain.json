@@ -3,7 +3,8 @@
   "hosts": [
     "krp",
     "kafkarestproxy.mydomain.example",
-    "kafkarestproxy.confluent.svc.cluster.local"
+    "kafkarestproxy.confluent.svc.cluster.local",
+    "kafkarestproxy.kafka-sasl-ssl-user.svc.cluster.local"
   ],
   "key": {
     "algo": "rsa",

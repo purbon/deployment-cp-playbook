@@ -3,7 +3,9 @@
   "hosts": [
     "c3",
     "controlcenter.mydomain.example",
-    "controlcenter.confluent.svc.cluster.local"
+    "controlcenter.confluent.svc.cluster.local",
+    "controlcenter.kafka-sasl-ssl-user.svc.cluster.local",
+    "controlcenter.kafka-sasl-ssl.svc.cluster.local"
   ],
   "key": {
     "algo": "rsa",

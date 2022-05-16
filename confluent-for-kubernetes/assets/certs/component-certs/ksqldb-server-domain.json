@@ -3,7 +3,9 @@
   "hosts": [
     "ksql",
     "ksqldb.mydomain.example",
-    "ksqldb.confluent.svc.cluster.local"
+    "ksqldb.confluent.svc.cluster.local",
+    "ksqldb.kafka-sasl-ssl-user.svc.cluster.local",
+    "ksqldb.kafka-sasl-ssl.svc.cluster.local"
   ],
   "key": {
     "algo": "rsa",

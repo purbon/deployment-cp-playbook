@@ -3,7 +3,9 @@
   "hosts": [
     "sr",
     "schemaregistry.mydomain.example",
-    "schemaregistry.confluent.svc.cluster.local"
+    "schemaregistry.confluent.svc.cluster.local",
+    "schemaregistry.kafka-sasl-ssl-user.svc.cluster.local",
+    "schemaregistry.kafka-sasl-ssl.svc.cluster.local"
   ],
   "key": {
     "algo": "rsa",
