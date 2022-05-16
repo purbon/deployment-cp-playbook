@@ -1,0 +1,34 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: connect-cfrb
+  namespace: kafka-sasl-ssl
+spec:
+  # The Connect cluster is named `connect` and is deployed in the namespace `confluent`
+  # The Connect cluster id naming pattern is: <namespace>.<connect-cluster-name>
+  clustersScopeByIds:
+    connectClusterId: kafka-sasl-ssl.connect
+  principal:
+    type: user
+    name: connect
+  role: ResourceOwner
+  resourcePatterns:
+    - name: "*"
+      resourceType: Connector
+      patternType: LITERAL
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: connect-cfrb-kafka
+  namespace: kafka-sasl-ssl
+spec:
+  principal:
+    type: user
+    name: connect
+  role: ResourceOwner
+  resourcePatterns:
+    - name: "*"
+      resourceType: Topic
+      patternType: LITERAL
