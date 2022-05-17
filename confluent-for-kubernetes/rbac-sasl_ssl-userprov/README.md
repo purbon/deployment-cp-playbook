@@ -327,4 +327,8 @@ datagen-local-01   CREATED   RUNNING           2/2           46m
 
 ### Open Control Center
 
+```bash
+$ kubectl port-forward controlcenter-0 9021:9021                                                                                2.7.0
+Forwarding from 127.0.0.1:9021 -> 9021
+Forwarding from [::1]:9021 -> 9021
 ```
