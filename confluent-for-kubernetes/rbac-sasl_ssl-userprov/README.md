@@ -5,6 +5,9 @@
 * Role Base Access Control enabled
 * SASL_SSL
 * User provided certificates
+* Managed Topics
+* Managed RBAC role bindings
+* Managed Connectors
 
 ```bash
 $ kubectl get pods                                                                                                              2.7.0
