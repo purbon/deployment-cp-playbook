@@ -27,6 +27,8 @@ zookeeper-2                          1/1     Running   0          51m
 
 ## Deployment steps
 
+[![asciicast](https://asciinema.org/a/wYuBDaiqhuEMLsshHKt1N0Wtd.svg)](https://asciinema.org/a/wYuBDaiqhuEMLsshHKt1N0Wtd)
+
 ### Prepare your cluster for a namespaced operator deployment
 
 ```bash
