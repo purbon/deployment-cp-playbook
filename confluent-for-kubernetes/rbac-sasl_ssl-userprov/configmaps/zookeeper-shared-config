@@ -1,0 +1,99 @@
+Name:         zookeeper-shared-config
+Namespace:    kafka-sasl-ssl-user
+Labels:       app.kubernetes.io/managed-by=confluent-operator
+              confluent-platform=true
+              cr-name=zookeeper
+              type=zookeeper
+Annotations:  platform.confluent.io/cr-name: zookeeper
+              platform.confluent.io/last-applied:
+                eyJkYXRhIjp7ImRpc2stdXNhZ2UtYWdlbnQucHJvcGVydGllcyI6ImRpc2suZGF0YT0vbW50L2RhdGEvZGF0YVxuc2VydmljZS5uYW1lPXpvb2tlZXBlclxuIiwiam14LWV4cG9ydG...
+              platform.confluent.io/namespace: kafka-sasl-ssl-user
+              platform.confluent.io/type: zookeeper
+
+Data
+====
+disk-usage-agent.properties:
+----
+disk.data=/mnt/data/data
+service.name=zookeeper
+
+jmx-exporter.yaml:
+----
+lowercaseOutputLabelNames: false
+lowercaseOutputName: true
+ssl: false
+
+jvm.config:
+----
+-Dcom.sun.management.jmxremote=true
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.port=7203
+-Dcom.sun.management.jmxremote.rmi.port=7203
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.awt.headless=true
+-Djava.security.auth.login.config=/mnt/secrets/digest-jaas.conf
+-Djdk.tls.ephemeralDHKeySize=2048
+-Djdk.tls.server.enableSessionTicketExtension=false
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+PrintFlagsFinal
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UseG1GC
+-XX:ConcGCThreads=1
+-XX:G1HeapRegionSize=16
+-XX:InitiatingHeapOccupancyPercent=35
+-XX:MaxGCPauseMillis=20
+-XX:MaxMetaspaceFreeRatio=80
+-XX:MetaspaceSize=96m
+-XX:MinMetaspaceFreeRatio=50
+-XX:ParallelGCThreads=1
+-server
+
+log4j.properties:
+----
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%p] %d [%t] %c %M - %m%n
+log4j.logger.org.apache.zookeeper.server.NIOServerCnxn=ERROR, stdout
+log4j.rootLogger=INFO, stdout
+
+peers.dynamic:
+----
+server.0=zookeeper-0.zookeeper.kafka-sasl-ssl-user.svc.cluster.local:2888:3888
+server.1=zookeeper-1.zookeeper.kafka-sasl-ssl-user.svc.cluster.local:2888:3888
+server.2=zookeeper-2.zookeeper.kafka-sasl-ssl-user.svc.cluster.local:2888:3888
+zookeeper.properties:
+----
+4lw.commands.whitelist=ruok, stat
+authProvider.sasl=org.apache.zookeeper.server.auth.SASLAuthenticationProvider
+authProvider.x509=org.apache.zookeeper.server.auth.X509AuthenticationProvider
+autopurge.purgeInterval=1
+clientPort=2181
+dataDir=/mnt/data/data
+dataLogDir=/mnt/data/txnlog
+dynamicConfigFile=/mnt/config/shared/peers.dynamic
+initLimit=10
+quorum.auth.enableSasl=true
+quorum.auth.learner.loginContext=QuorumLearner
+quorum.auth.learnerRequireSasl=true
+quorum.auth.server.loginContext=QuorumServer
+quorum.auth.serverRequireSasl=true
+quorum.cnxn.threads.size=20
+requireClientAuthScheme=sasl
+secureClientPort=2182
+serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory
+ssl.clientAuth=none
+ssl.enabled.protocols=TLSv1.2
+ssl.keyStore.location=/mnt/sslcerts/keystore.p12
+ssl.keyStore.password=mystorepassword
+ssl.quorum.clientAuth=none
+ssl.quorum.keyStore.location=/mnt/sslcerts/keystore.p12
+ssl.quorum.keyStore.password=mystorepassword
+ssl.quorum.trustStore.location=/mnt/sslcerts/truststore.p12
+ssl.quorum.trustStore.password=mystorepassword
+ssl.trustStore.location=/mnt/sslcerts/truststore.p12
+ssl.trustStore.password=mystorepassword
+sslQuorum=true
+syncLimit=5
+
+Events:  <none>

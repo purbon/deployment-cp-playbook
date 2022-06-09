@@ -1,0 +1,202 @@
+Name:         kafka-shared-config
+Namespace:    kafka-sasl-ssl-user
+Labels:       app.kubernetes.io/managed-by=confluent-operator
+              confluent-platform=true
+              cr-name=kafka
+              type=kafka
+Annotations:  platform.confluent.io/cr-name: kafka
+              platform.confluent.io/last-applied:
+                eyJkYXRhIjp7ImRpc2stdXNhZ2UtYWdlbnQucHJvcGVydGllcyI6ImRpc2suZGF0YT0vbW50L2RhdGEvZGF0YTBcbnNlcnZpY2UubmFtZT1rYWZrYVxuIiwiam14LWV4cG9ydGVyLn...
+              platform.confluent.io/namespace: kafka-sasl-ssl-user
+              platform.confluent.io/type: kafka
+
+Data
+====
+disk-usage-agent.properties:
+----
+disk.data=/mnt/data/data0
+service.name=kafka
+
+jmx-exporter.yaml:
+----
+lowercaseOutputLabelNames: false
+lowercaseOutputName: true
+ssl: false
+
+jvm.config:
+----
+-Dcom.sun.management.jmxremote=true
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.port=7203
+-Dcom.sun.management.jmxremote.rmi.port=7203
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.awt.headless=true
+-Djava.security.auth.login.config=/mnt/secrets/digest-jaas.conf
+-Djdk.tls.ephemeralDHKeySize=2048
+-Djdk.tls.server.enableSessionTicketExtension=false
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+PrintFlagsFinal
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UseG1GC
+-XX:ConcGCThreads=1
+-XX:G1HeapRegionSize=16
+-XX:InitiatingHeapOccupancyPercent=35
+-XX:MaxGCPauseMillis=20
+-XX:MaxMetaspaceFreeRatio=80
+-XX:MetaspaceSize=96m
+-XX:MinMetaspaceFreeRatio=50
+-XX:ParallelGCThreads=1
+-server
+
+kafka.properties:
+----
+authorizer.class.name=io.confluent.kafka.security.authorizer.ConfluentServerAuthorizer
+auto.create.topics.enable=false
+config.providers=file
+config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
+confluent.authorizer.access.rule.providers=ZK_ACL,CONFLUENT
+confluent.balancer.enable=true
+confluent.license.topic.replication.factor=3
+confluent.metadata.server.authentication.method=BEARER
+confluent.metadata.server.enable.server.urls.refresh=false
+confluent.metadata.server.listeners=https://0.0.0.0:8090
+confluent.metadata.server.public.key.path=/mnt/secrets/mds-token/mdsPublicKey.pem
+confluent.metadata.server.ssl.endpoint.identification.algorithm=HTTPS
+confluent.metadata.server.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.metadata.server.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+confluent.metadata.server.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.metadata.server.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.metadata.server.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.metadata.server.token.auth.enable=true
+confluent.metadata.server.token.key.path=/mnt/secrets/mds-token/mdsTokenKeyPair.pem
+confluent.metadata.server.token.max.lifetime.ms=3600000
+confluent.metadata.server.token.signature.algorithm=RS256
+confluent.metrics.reporter.bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9071
+confluent.metrics.reporter.publish.ms=30000
+confluent.metrics.reporter.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="${file:/mnt/secrets/kafka-internal-listener-apikeys/plain.txt:username}" password="${file:/mnt/secrets/kafka-internal-listener-apikeys/plain.txt:password}";
+confluent.metrics.reporter.sasl.mechanism=PLAIN
+confluent.metrics.reporter.security.protocol=SASL_SSL
+confluent.metrics.reporter.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.metrics.reporter.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.metrics.reporter.topic.replicas=3
+confluent.operator.managed=true
+default.replication.factor=3
+delete.topic.enable=true
+group.max.session.timeout.ms=1200000
+inter.broker.listener.name=REPLICATION
+inter.broker.protocol.version=2.6
+kafka.rest.bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+kafka.rest.client.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/mds-client/bearer.txt:username}" password="${file:/mnt/secrets/mds-client/bearer.txt:password}";
+kafka.rest.client.sasl.mechanism=OAUTHBEARER
+kafka.rest.client.security.protocol=SASL_SSL
+kafka.rest.client.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+kafka.rest.client.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+kafka.rest.confluent.metadata.basic.auth.user.info=${file:/mnt/secrets/mds-client/bearer.txt:username}:${file:/mnt/secrets/mds-client/bearer.txt:password}
+kafka.rest.confluent.metadata.bootstrap.server.urls=https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090
+kafka.rest.confluent.metadata.http.auth.credentials.provider=BASIC
+kafka.rest.confluent.metadata.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+kafka.rest.confluent.metadata.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+kafka.rest.enable=true
+kafka.rest.kafka.rest.resource.extension.class=io.confluent.kafkarest.security.KafkaRestSecurityResourceExtension
+kafka.rest.public.key.path=/mnt/secrets/mds-token/mdsPublicKey.pem
+kafka.rest.rest.servlet.initializor.classes=io.confluent.common.security.jetty.initializer.InstallBearerOrBasicSecurityHandler
+ldap.group.member.attribute=member
+ldap.group.member.attribute.pattern=CN=(.*),OU=groups,DC=test,DC=com
+ldap.group.name.attribute=cn
+ldap.group.object.class=group
+ldap.group.search.base=OU=groups,DC=test,DC=com
+ldap.java.naming.provider.url=ldap://ldap.kafka-sasl-ssl-user.svc.cluster.local:389
+ldap.java.naming.security.authentication=simple
+ldap.java.naming.security.credentials=${file:/mnt/secrets/credential/ldap.txt:password}
+ldap.java.naming.security.principal=${file:/mnt/secrets/credential/ldap.txt:username}
+ldap.user.memberof.attribute.pattern=CN=(\w+),[OU=users+,]*DC=test,DC=com
+ldap.user.name.attribute=cn
+ldap.user.object.class=organizationalRole
+ldap.user.search.base=DC=test,DC=com
+listener.name.external.plain.sasl.jaas.config=io.confluent.kafka.server.plugins.auth.FileBasedLoginModule required config_path="/mnt/secrets/kafka-external-listener-apikeys/apikeys.json" refresh_ms="3000";
+listener.name.external.sasl.enabled.mechanisms=PLAIN
+listener.name.external.sasl.mechanism=PLAIN
+listener.name.external.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.external.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+listener.name.external.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.external.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+listener.name.external.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.internal.plain.sasl.jaas.config=io.confluent.kafka.server.plugins.auth.FileBasedLoginModule required config_path="/mnt/secrets/kafka-internal-listener-apikeys/apikeys.json" refresh_ms="3000";
+listener.name.internal.sasl.enabled.mechanisms=PLAIN
+listener.name.internal.sasl.mechanism=PLAIN
+listener.name.internal.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.internal.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+listener.name.internal.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.internal.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+listener.name.internal.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.replication.plain.sasl.jaas.config=io.confluent.kafka.server.plugins.auth.FileBasedLoginModule required username="${file:/mnt/secrets/kafka-internal-listener-apikeys/plain.txt:username}" password="${file:/mnt/secrets/kafka-internal-listener-apikeys/plain.txt:password}" config_path="/mnt/secrets/kafka-internal-listener-apikeys/apikeys.json" refresh_ms="3000";
+listener.name.replication.sasl.enabled.mechanisms=PLAIN
+listener.name.replication.sasl.mechanism=PLAIN
+listener.name.replication.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.replication.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+listener.name.replication.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.replication.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+listener.name.replication.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.token.oauthbearer.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required publicKeyPath="/mnt/secrets/mds-token/mdsPublicKey.pem";
+listener.name.token.oauthbearer.sasl.login.callback.handler.class=io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler
+listener.name.token.oauthbearer.sasl.server.callback.handler.class=io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler
+listener.name.token.sasl.enabled.mechanisms=OAUTHBEARER
+listener.name.token.sasl.mechanism=PLAIN
+listener.name.token.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.token.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+listener.name.token.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.name.token.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+listener.name.token.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listener.security.protocol.map=EXTERNAL:SASL_SSL,INTERNAL:SASL_SSL,REPLICATION:SASL_SSL,TOKEN:SASL_SSL
+listeners=EXTERNAL://:9092,INTERNAL://:9071,REPLICATION://:9072,TOKEN://:9073
+log.dirs=/mnt/data/data0/logs
+log.message.format.version=2.6
+log.retention.check.interval.ms=300000
+log.retention.hours=168
+log.segment.bytes=1073741824
+metric.reporters=io.confluent.metrics.reporter.ConfluentMetricsReporter
+min.insync.replicas=2
+num.io.threads=8
+num.network.threads=4
+num.partitions=1
+num.recovery.threads.per.data.dir=1
+offsets.commit.timeout.ms=15000
+offsets.retention.minutes=10080
+offsets.topic.compression.codec=3
+offsets.topic.replication.factor=3
+replica.lag.time.max.ms=45000
+sasl.enabled.mechanisms=PLAIN
+sasl.mechanism.inter.broker.protocol=PLAIN
+socket.receive.buffer.bytes=102400
+socket.request.max.bytes=104857600
+socket.send.buffer.bytes=102400
+ssl.enabled.protocols=TLSv1.2
+super.users=User:operator;User:kafka
+transaction.state.log.min.isr=2
+transaction.state.log.replication.factor=3
+zookeeper.clientCnxnSocket=org.apache.zookeeper.ClientCnxnSocketNetty
+zookeeper.connect=zookeeper.kafka-sasl-ssl-user.svc.cluster.local:2182/kafka-kafka-sasl-ssl-user
+zookeeper.session.timeout.ms=22500
+zookeeper.ssl.client.enable=true
+zookeeper.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+zookeeper.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+
+log4j.properties:
+----
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%p] %d [%t] %c %M - %m%n
+log4j.logger.io.confluent.common.security.jetty=DEBUG
+log4j.logger.io.confluent.rbacapi=DEBUG
+log4j.logger.io.confluent.rbacapi.login=DEBUG
+log4j.logger.io.confluent.rest-utils=DEBUG
+log4j.logger.io.confluent.security.auth=DEBUG
+log4j.logger.io.confluent.security.auth.provider.ldap=TRACE
+log4j.logger.io.confluent.security.store=DEBUG
+log4j.logger.io.confluent.tokenapi=DEBUG
+log4j.logger.org.I0Itec.zkclient.ZkClient=INFO
+log4j.logger.org.apache.zookeeper=INFO
+log4j.rootLogger=INFO, stdout
+
+Events:  <none>

@@ -1,0 +1,128 @@
+Name:         connect-shared-config
+Namespace:    kafka-sasl-ssl-user
+Labels:       app.kubernetes.io/managed-by=confluent-operator
+              confluent-platform=true
+              cr-name=connect
+              type=connect
+Annotations:  platform.confluent.io/cr-name: connect
+              platform.confluent.io/last-applied:
+                eyJkYXRhIjp7ImNvbm5lY3QucHJvcGVydGllcyI6ImFkbWluLmJvb3RzdHJhcC5zZXJ2ZXJzPWthZmthLmthZmthLXNhc2wtc3NsLXVzZXIuc3ZjLmNsdXN0ZXIubG9jYWw6OTA3M1...
+              platform.confluent.io/namespace: kafka-sasl-ssl-user
+              platform.confluent.io/type: connect
+
+Data
+====
+plugins.json:
+----
+eyJDb25mbHVlbnRIdWJQbHVnaW5zIjpbeyJOYW1lIjoiY29uZmx1ZW50aW5jL2thZmthLWNvbm5lY3QtZGF0YWdlbjowLjUuMiIsIkV4dHJhQXJncyI6IiJ9XSwiUmVtb3RlVVJMUGx1Z2lucyI6bnVsbH0=
+connect.properties:
+----
+admin.bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+admin.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/connect-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/connect-mds-client/bearer.txt:password}";
+admin.sasl.login.callback.handler.class=io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+admin.sasl.mechanism=OAUTHBEARER
+admin.security.protocol=SASL_SSL
+admin.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+admin.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+config.providers=file
+config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
+config.storage.replication.factor=3
+config.storage.topic=kafka-sasl-ssl-user.connect-configs
+confluent.metadata.basic.auth.user.info=${file:/mnt/secrets/connect-mds-client/bearer.txt:username}:${file:/mnt/secrets/connect-mds-client/bearer.txt:password}
+confluent.metadata.bootstrap.server.urls=https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090
+confluent.metadata.http.auth.credentials.provider=BASIC
+confluent.metadata.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.metadata.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.topic.replication.factor=3
+connector.client.config.override.policy=All
+consumer.bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+consumer.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/connect-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/connect-mds-client/bearer.txt:password}";
+consumer.sasl.login.callback.handler.class=io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+consumer.sasl.mechanism=OAUTHBEARER
+consumer.security.protocol=SASL_SSL
+consumer.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+consumer.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+group.id=kafka-sasl-ssl-user.connect
+key.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=false
+listeners=https://0.0.0.0:8083
+listeners.https.ssl.enabled.protocols=TLSv1.2
+listeners.https.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listeners.https.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+listeners.https.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+listeners.https.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+listeners.https.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+offset.flush.interval.ms=10000
+offset.storage.replication.factor=3
+offset.storage.topic=kafka-sasl-ssl-user.connect-offsets
+plugin.path=/usr/share/java,/usr/share/confluent-hub-components,/mnt/plugins
+producer.bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+producer.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/connect-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/connect-mds-client/bearer.txt:password}";
+producer.sasl.login.callback.handler.class=io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+producer.sasl.mechanism=OAUTHBEARER
+producer.security.protocol=SASL_SSL
+producer.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+producer.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+public.key.path=/mnt/secrets/mds-token/mdsPublicKey.pem
+request.timeout.ms=20000
+rest.advertised.listener=https
+rest.extension.classes=io.confluent.connect.security.ConnectSecurityExtension
+rest.servlet.initializor.classes=io.confluent.common.security.jetty.initializer.InstallBearerOrBasicSecurityHandler
+retry.backoff.ms=500
+sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/connect-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/connect-mds-client/bearer.txt:password}";
+sasl.login.callback.handler.class=io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+sasl.mechanism=OAUTHBEARER
+security.protocol=SASL_SSL
+ssl.truststore.location=/mnt/sslcerts/truststore.p12
+ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+status.storage.replication.factor=3
+status.storage.topic=kafka-sasl-ssl-user.connect-status
+value.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter.schemas.enable=false
+
+disk-usage-agent.properties:
+----
+
+jmx-exporter.yaml:
+----
+lowercaseOutputLabelNames: false
+lowercaseOutputName: true
+ssl: false
+
+jvm.config:
+----
+-Dcom.sun.management.jmxremote=true
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.port=7203
+-Dcom.sun.management.jmxremote.rmi.port=7203
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.awt.headless=true
+-Djdk.tls.ephemeralDHKeySize=2048
+-Djdk.tls.server.enableSessionTicketExtension=false
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+PrintFlagsFinal
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UseG1GC
+-XX:ConcGCThreads=1
+-XX:G1HeapRegionSize=16
+-XX:InitiatingHeapOccupancyPercent=35
+-XX:MaxGCPauseMillis=20
+-XX:MaxMetaspaceFreeRatio=80
+-XX:MetaspaceSize=96m
+-XX:MinMetaspaceFreeRatio=50
+-XX:ParallelGCThreads=1
+-server
+
+log4j.properties:
+----
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%p] %d [%t] %c %M - %m%n
+log4j.logger.org.I0Itec.zkclient=ERROR, stdout
+log4j.logger.org.apache.zookeeper=ERROR, stdout
+log4j.logger.org.reflections=ERROR, stdout
+log4j.rootLogger=INFO, stdout
+
+Events:  <none>

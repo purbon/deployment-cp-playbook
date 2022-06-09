@@ -1,0 +1,96 @@
+Name:         ksqldb-shared-config
+Namespace:    kafka-sasl-ssl-user
+Labels:       app.kubernetes.io/managed-by=confluent-operator
+              confluent-platform=true
+              cr-name=ksqldb
+              type=ksqldb
+Annotations:  platform.confluent.io/cr-name: ksqldb
+              platform.confluent.io/last-applied:
+                eyJkYXRhIjp7ImRpc2stdXNhZ2UtYWdlbnQucHJvcGVydGllcyI6ImRpc2suZGF0YT0vbW50L2RhdGEvZGF0YVxuc2VydmljZS5uYW1lPWtzcWxkYlxuIiwiam14LWV4cG9ydGVyLn...
+              platform.confluent.io/namespace: kafka-sasl-ssl-user
+              platform.confluent.io/type: ksqldb
+
+Data
+====
+disk-usage-agent.properties:
+----
+disk.data=/mnt/data/data
+service.name=ksqldb
+
+jmx-exporter.yaml:
+----
+lowercaseOutputLabelNames: false
+lowercaseOutputName: true
+ssl: false
+
+jvm.config:
+----
+-Dcom.sun.management.jmxremote=true
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.port=7203
+-Dcom.sun.management.jmxremote.rmi.port=7203
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.awt.headless=true
+-Djdk.tls.ephemeralDHKeySize=2048
+-Djdk.tls.server.enableSessionTicketExtension=false
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+PrintFlagsFinal
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UseG1GC
+-XX:ConcGCThreads=1
+-XX:G1HeapRegionSize=16
+-XX:InitiatingHeapOccupancyPercent=35
+-XX:MaxGCPauseMillis=20
+-XX:MaxMetaspaceFreeRatio=80
+-XX:MetaspaceSize=96m
+-XX:MinMetaspaceFreeRatio=50
+-XX:ParallelGCThreads=1
+-server
+
+ksqldb.properties:
+----
+authentication.skip.paths=/chc/live,/chc/ready
+bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+config.providers=file
+config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
+confluent.metadata.basic.auth.user.info=${file:/mnt/secrets/ksqldb-mds-client/bearer.txt:username}:${file:/mnt/secrets/ksqldb-mds-client/bearer.txt:password}
+confluent.metadata.bootstrap.server.urls=https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090
+confluent.metadata.http.auth.credentials.provider=BASIC
+confluent.metadata.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.metadata.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.support.metrics.enable=true
+ksql.authentication.plugin.class=io.confluent.ksql.security.VertxBearerOrBasicAuthenticationPlugin
+ksql.security.extension.class=io.confluent.ksql.security.KsqlConfluentSecurityExtension
+ksql.service.id=kafka-sasl-ssl-user.ksqldb_
+ksql.sink.replicas=3
+ksql.streams.num.standby.replicas=1
+ksql.streams.producer.confluent.batch.expiry.ms=9223372036854775807
+ksql.streams.producer.max.block.ms=9223372036854775807
+ksql.streams.producer.request.timeout.ms=300000
+ksql.streams.producer.retries=2147483647
+ksql.streams.replication.factor=3
+ksql.streams.state.dir=/mnt/data/data/ksql-state
+listeners=https://0.0.0.0:8088
+public.key.path=/mnt/secrets/mds-token/mdsPublicKey.pem
+request.timeout.ms=20000
+retry.backoff.ms=500
+sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/ksqldb-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/ksqldb-mds-client/bearer.txt:password}";
+sasl.login.callback.handler.class=io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+sasl.mechanism=OAUTHBEARER
+security.protocol=SASL_SSL
+ssl.enabled.protocols=TLSv1.2
+ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+ssl.keystore.location=/mnt/sslcerts/keystore.p12
+ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+ssl.truststore.location=/mnt/sslcerts/truststore.p12
+ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+
+log4j.properties:
+----
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%p] %d [%t] %c %M - %m%n
+log4j.rootLogger=INFO, stdout
+
+Events:  <none>

@@ -1,0 +1,87 @@
+Name:         schemaregistry-shared-config
+Namespace:    kafka-sasl-ssl-user
+Labels:       app.kubernetes.io/managed-by=confluent-operator
+              confluent-platform=true
+              cr-name=schemaregistry
+              type=schemaregistry
+Annotations:  platform.confluent.io/cr-name: schemaregistry
+              platform.confluent.io/last-applied:
+                eyJkYXRhIjp7ImpteC1leHBvcnRlci55YW1sIjoibG93ZXJjYXNlT3V0cHV0TGFiZWxOYW1lczogZmFsc2Vcbmxvd2VyY2FzZU91dHB1dE5hbWU6IHRydWVcbnNzbDogZmFsc2Vcbi...
+              platform.confluent.io/namespace: kafka-sasl-ssl-user
+              platform.confluent.io/type: schemaregistry
+
+Data
+====
+jmx-exporter.yaml:
+----
+lowercaseOutputLabelNames: false
+lowercaseOutputName: true
+ssl: false
+
+jvm.config:
+----
+-Dcom.sun.management.jmxremote=true
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.port=7203
+-Dcom.sun.management.jmxremote.rmi.port=7203
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.awt.headless=true
+-Djdk.tls.ephemeralDHKeySize=2048
+-Djdk.tls.server.enableSessionTicketExtension=false
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+PrintFlagsFinal
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UseG1GC
+-XX:ConcGCThreads=1
+-XX:G1HeapRegionSize=16
+-XX:InitiatingHeapOccupancyPercent=35
+-XX:MaxGCPauseMillis=20
+-XX:MaxMetaspaceFreeRatio=80
+-XX:MetaspaceSize=96m
+-XX:MinMetaspaceFreeRatio=50
+-XX:ParallelGCThreads=1
+-server
+
+log4j.properties:
+----
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%p] %d [%t] %c %M - %m%n
+log4j.rootLogger=INFO, stdout
+
+schemaregistry.properties:
+----
+config.providers=file
+config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
+confluent.metadata.basic.auth.user.info=${file:/mnt/secrets/sr-mds-client/bearer.txt:username}:${file:/mnt/secrets/sr-mds-client/bearer.txt:password}
+confluent.metadata.bootstrap.server.urls=https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090
+confluent.metadata.http.auth.credentials.provider=BASIC
+confluent.metadata.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.metadata.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.schema.registry.auth.mechanism=JETTY_AUTH
+confluent.schema.registry.authorizer.class=io.confluent.kafka.schemaregistry.security.authorizer.rbac.RbacAuthorizer
+inter.instance.protocol=https
+kafkastore.bootstrap.servers=SASL_SSL://kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+kafkastore.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/sr-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/sr-mds-client/bearer.txt:password}";
+kafkastore.sasl.login.callback.handler.class=io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
+kafkastore.sasl.mechanism=OAUTHBEARER
+kafkastore.security.protocol=SASL_SSL
+kafkastore.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+kafkastore.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+kafkastore.topic=_schemas_schemaregistry_kafka-sasl-ssl-user
+kafkastore.topic.replication.factor=3
+listeners=https://0.0.0.0:8081
+metrics.jmx.prefix=schemaregistry_kafka-sasl-ssl-user
+public.key.path=/mnt/secrets/mds-token/mdsPublicKey.pem
+rest.servlet.initializor.classes=io.confluent.common.security.jetty.initializer.InstallBearerOrBasicSecurityHandler
+schema.registry.group.id=id_schemaregistry_kafka-sasl-ssl-user
+schema.registry.resource.extension.class=io.confluent.kafka.schemaregistry.security.SchemaRegistrySecurityResourceExtension
+ssl.enabled.protocols=TLSv1.2
+ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+ssl.keystore.location=/mnt/sslcerts/keystore.p12
+ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+ssl.truststore.location=/mnt/sslcerts/truststore.p12
+ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+
+Events:  <none>

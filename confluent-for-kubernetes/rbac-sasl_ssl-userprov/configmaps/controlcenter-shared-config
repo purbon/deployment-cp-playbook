@@ -1,0 +1,116 @@
+Name:         controlcenter-shared-config
+Namespace:    kafka-sasl-ssl-user
+Labels:       app.kubernetes.io/managed-by=confluent-operator
+              confluent-platform=true
+              cr-name=controlcenter
+              type=controlcenter
+Annotations:  platform.confluent.io/cr-name: controlcenter
+              platform.confluent.io/last-applied:
+                eyJkYXRhIjp7ImNvbnRyb2xjZW50ZXIucHJvcGVydGllcyI6ImJvb3RzdHJhcC5zZXJ2ZXJzPWthZmthLmthZmthLXNhc2wtc3NsLXVzZXIuc3ZjLmNsdXN0ZXIubG9jYWw6OTA3M1...
+              platform.confluent.io/namespace: kafka-sasl-ssl-user
+              platform.confluent.io/type: controlcenter
+
+Data
+====
+log4j.properties:
+----
+log4j.additivity.io.confluent.controlcenter.streams=false
+log4j.additivity.org.apache.kafka.streams=false
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%d] %p [%t] %m (%c)%n
+log4j.appender.streams=org.apache.log4j.ConsoleAppender
+log4j.appender.streams.filter.1=io.confluent.Log4jRateFilter
+log4j.appender.streams.filter.1.level=ERROR
+log4j.appender.streams.filter.1.rate=25
+log4j.appender.streams.layout=org.apache.log4j.EnhancedPatternLayout
+log4j.appender.streams.layout.ConversionPattern=[%d] %p [%t] %m (%c)%n
+log4j.logger.io.confluent.controlcenter.streams=INFO, streams
+log4j.logger.kafka=INFO, stdout
+log4j.logger.org.I0Itec.zkclient=ERROR, stdout
+log4j.logger.org.apache.kafka=INFO, stdout
+log4j.logger.org.apache.kafka.clients.consumer=INFO, stdout
+log4j.logger.org.apache.kafka.streams=INFO, streams
+log4j.logger.org.apache.zookeeper=ERROR, stdout
+log4j.rootLogger=INFO, stdout
+
+controlcenter.properties:
+----
+bootstrap.servers=kafka.kafka-sasl-ssl-user.svc.cluster.local:9073
+config.providers=file
+config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
+confluent.controlcenter.connect.connect.cluster=https://connect.kafka-sasl-ssl-user.svc.cluster.local:8083
+confluent.controlcenter.connect.connect.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.controlcenter.connect.connect.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.data.dir=/mnt/data/data0
+confluent.controlcenter.id=0
+confluent.controlcenter.internal.topics.partitions=4
+confluent.controlcenter.ksql.enable=true
+confluent.controlcenter.ksql.ksqldb.advertised.url=https://ksqldb.kafka-sasl-ssl-user.svc.cluster.local:8088
+confluent.controlcenter.ksql.ksqldb.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.controlcenter.ksql.ksqldb.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.ksql.ksqldb.url=https://ksqldb.kafka-sasl-ssl-user.svc.cluster.local:8088
+confluent.controlcenter.metadata.password=${file:/mnt/secrets/c3-mds-client/bearer.txt:password}
+confluent.controlcenter.metadata.username=${file:/mnt/secrets/c3-mds-client/bearer.txt:username}
+confluent.controlcenter.name=_confluent-controlcenter
+confluent.controlcenter.rest.authentication.method=BEARER
+confluent.controlcenter.rest.authentication.skip.paths=/2.0/status/app_info
+confluent.controlcenter.rest.listeners=https://0.0.0.0:9021
+confluent.controlcenter.rest.ssl.enabled.protocols=TLSv1.2
+confluent.controlcenter.rest.ssl.key.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.rest.ssl.keystore.location=/mnt/sslcerts/keystore.p12
+confluent.controlcenter.rest.ssl.keystore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.rest.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.controlcenter.rest.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.schema.registry.enable=true
+confluent.controlcenter.schema.registry.schema.registry.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.controlcenter.schema.registry.schema.registry.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.schema.registry.url=https://schemaregistry.kafka-sasl-ssl-user.svc.cluster.local:8081
+confluent.controlcenter.streams.cprest.url=https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090
+confluent.controlcenter.streams.sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090" username="${file:/mnt/secrets/c3-mds-client/bearer.txt:username}" password="${file:/mnt/secrets/c3-mds-client/bearer.txt:password}";
+confluent.controlcenter.streams.sasl.mechanism=OAUTHBEARER
+confluent.controlcenter.streams.security.protocol=SASL_SSL
+confluent.controlcenter.streams.ssl.truststore.location=/mnt/sslcerts/truststore.p12
+confluent.controlcenter.streams.ssl.truststore.password=${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
+confluent.controlcenter.topic.inspection.enable=true
+confluent.metadata.basic.auth.user.info=${file:/mnt/secrets/c3-mds-client/bearer.txt:username}:${file:/mnt/secrets/c3-mds-client/bearer.txt:password}
+confluent.metadata.bootstrap.server.urls=https://kafka.kafka-sasl-ssl-user.svc.cluster.local:8090
+public.key.path=/mnt/secrets/mds-token/mdsPublicKey.pem
+
+disk-usage-agent.properties:
+----
+disk.data=/mnt/data/data0
+service.name=controlcenter
+
+jmx-exporter.yaml:
+----
+lowercaseOutputLabelNames: false
+lowercaseOutputName: true
+ssl: false
+
+jvm.config:
+----
+-Dcom.sun.management.jmxremote=true
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.port=7203
+-Dcom.sun.management.jmxremote.rmi.port=7203
+-Dcom.sun.management.jmxremote.ssl=false
+-Djava.awt.headless=true
+-Djdk.tls.ephemeralDHKeySize=2048
+-Djdk.tls.server.enableSessionTicketExtension=false
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+PrintFlagsFinal
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UseG1GC
+-XX:ConcGCThreads=1
+-XX:G1HeapRegionSize=16
+-XX:InitiatingHeapOccupancyPercent=35
+-XX:MaxGCPauseMillis=20
+-XX:MaxMetaspaceFreeRatio=80
+-XX:MetaspaceSize=96m
+-XX:MinMetaspaceFreeRatio=50
+-XX:ParallelGCThreads=1
+-server
+
+Events:  <none>
