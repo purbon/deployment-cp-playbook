@@ -1,0 +1,5 @@
+*.tgz
+.idea/*
+charts/cp-kafka/requirements.lock
+charts/*/charts
+charts/*/requirements.lock
