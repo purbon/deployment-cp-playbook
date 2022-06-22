@@ -36,6 +36,12 @@ spec:
         type: persistent-claim
         size: 100Gi
         deleteClaim: false
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
   zookeeper:
     #image: confluentinc/cp-zookeeper:7.1.1
     replicas: 3
@@ -43,6 +49,12 @@ spec:
       type: persistent-claim
       size: 100Gi
       deleteClaim: false
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: zookeeper-metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
