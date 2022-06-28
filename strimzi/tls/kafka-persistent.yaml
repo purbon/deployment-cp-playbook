@@ -21,6 +21,19 @@ spec:
         port: 9094
         type: loadbalancer
         tls: false
+      - name: tls2
+        port: 9095
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+        configuration:
+          brokerCertChainAndKey:
+            secretName: my-secret
+            certificate: kafka-server.pem
+            key: kafka-server-key.pem
+    authorization:
+      type: simple
     #image: confluentinc/cp-kafka:7.1.1
     config:
       offsets.topic.replication.factor: 3
@@ -29,6 +42,9 @@ spec:
       default.replication.factor: 3
       min.insync.replicas: 2
       inter.broker.protocol.version: "3.2"
+       ## necessary because of deployment of schema registry not yet
+       ## with proper TLS usage, so it defaults to User:ANONYMOUS
+      allow.everyone.if.no.acl.found: "true"
     storage:
       type: jbod
       volumes:
@@ -36,12 +52,12 @@ spec:
         type: persistent-claim
         size: 100Gi
         deleteClaim: false
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: kafka-metrics-config.yml
+#    metricsConfig:
+#      type: jmxPrometheusExporter
+#      valueFrom:
+#        configMapKeyRef:
+#          name: kafka-metrics
+#          key: kafka-metrics-config.yml
   zookeeper:
     #image: confluentinc/cp-zookeeper:7.1.1
     replicas: 3
@@ -71,7 +87,17 @@ metadata:
 spec:
   version: 3.2.0
   replicas: 2
-  bootstrapServers: cflt-kafka-bootstrap:9092
+  bootstrapServers: cflt-kafka-bootstrap:9093
+  tls:
+    trustedCertificates:
+      - secretName: cflt-cluster-ca-cert
+        certificate: ca.crt
+  authentication:
+    type: tls
+    certificateAndKey:
+      secretName: cp-connect-user
+      certificate: user.crt
+      key: user.key
   config:
     group.id: connect-cluster
     offset.storage.topic: connect-cluster-offsets
