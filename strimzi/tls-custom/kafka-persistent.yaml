@@ -1,0 +1,130 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: cflt
+spec:
+  kafka:
+    version: 3.2.0
+    replicas: 3
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+      - name: external
+        port: 9094
+        type: loadbalancer
+        tls: false
+      - name: tls2
+        port: 9095
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+        configuration:
+          brokerCertChainAndKey:
+            secretName: my-secret
+            certificate: kafka-server.pem
+            key: kafka-server-key.pem
+    authorization:
+      type: simple
+    #image: confluentinc/cp-kafka:7.1.1
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+      inter.broker.protocol.version: "3.2"
+       ## necessary because of deployment of schema registry not yet
+       ## with proper TLS usage, so it defaults to User:ANONYMOUS
+      allow.everyone.if.no.acl.found: "true"
+    storage:
+      type: jbod
+      volumes:
+      - id: 0
+        type: persistent-claim
+        size: 100Gi
+        deleteClaim: false
+#    metricsConfig:
+#      type: jmxPrometheusExporter
+#      valueFrom:
+#        configMapKeyRef:
+#          name: kafka-metrics
+#          key: kafka-metrics-config.yml
+  zookeeper:
+    #image: confluentinc/cp-zookeeper:7.1.1
+    replicas: 3
+    storage:
+      type: persistent-claim
+      size: 100Gi
+      deleteClaim: false
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: zookeeper-metrics-config.yml
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: cp-connect
+#  annotations:
+#  # use-connector-resources configures this KafkaConnect
+#  # to use KafkaConnector resources to avoid
+#  # needing to call the Connect REST API directly
+#    strimzi.io/use-connector-resources: "true"
+spec:
+  version: 3.2.0
+  replicas: 2
+  bootstrapServers: cflt-kafka-bootstrap:9093
+  tls:
+    trustedCertificates:
+      - secretName: cflt-cluster-ca-cert
+        certificate: ca.crt
+  authentication:
+    type: tls
+    certificateAndKey:
+      secretName: cp-connect-user
+      certificate: user.crt
+      key: user.key
+  config:
+    group.id: connect-cluster
+    offset.storage.topic: connect-cluster-offsets
+    config.storage.topic: connect-cluster-configs
+    status.storage.topic: connect-cluster-status
+    # -1 means it will use the default replication factor configured in the broker
+    config.storage.replication.factor: -1
+    offset.storage.replication.factor: -1
+    status.storage.replication.factor: -1
+  build:
+    output:
+      type: docker
+      # This image will last only for 24 hours and might be overwritten by other users
+      # Strimzi will use this tag to push the image. But it will use the digest to pull
+      # the container image to make sure it pulls exactly the image we just built. So
+      # it should not happen that you pull someone else's container image. However, we
+      # recommend changing this to your own container registry or using a different
+      # image name for any other than demo purposes.
+      image: ttl.sh/strimzi-connect-example-3.2.0:24h
+    plugins:
+      - name: kafka-connect-file
+        artifacts:
+          - type: maven
+            group: org.apache.kafka
+            artifact: connect-file
+            version: 3.2.0
+      - name: debezium-connector-sqlserver
+        artifacts:
+          - type: zip
+            url: https://d1i4a15mxbxib1.cloudfront.net/api/plugins/debezium/debezium-connector-sqlserver/versions/1.9.2/debezium-debezium-connector-sqlserver-1.9.2.zip
