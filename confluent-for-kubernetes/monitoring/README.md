@@ -177,3 +177,7 @@ $ kubectl apply -f connector.yaml -n confluent                                  
 kafkatopic.platform.confluent.io/pageviews created
 connector.platform.confluent.io/pageviews created
 ```
+
+### References
+
+https://blog.container-solutions.com/prometheus-operator-beginners-guide
