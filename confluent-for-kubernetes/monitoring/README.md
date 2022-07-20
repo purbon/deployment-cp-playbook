@@ -178,6 +178,42 @@ kafkatopic.platform.confluent.io/pageviews created
 connector.platform.confluent.io/pageviews created
 ```
 
+## Add Confluent Cloud Monitoring
+
+Note, before adding this configuration you will need to update the prometheus additional job file with the right missing values (see changeme).
+The expected values for the clusterIds and the Confluent Cloud API key can be found in the UI or using the confluent CLI tool.
+
+Add an additional scrapper config:
+
+```bash
+$ kubectl create secret generic additional-scrape-configs --from-file=prometheus/prometheus-additional-job.yaml --dry-run=client -oyaml > additional-scrape-configs.yaml
+
+~/work/ps/deployments/deployment-confluent-platform/confluent-for-kubernetes/monitoring on  master! ⌚ 14:40:00
+$ cat additional-scrape-configs.yaml                                                                                     2.7.0
+apiVersion: v1
+data:
+  prometheus-additional-job.yaml: LSBqb2JfbmFtZTogQ29uZmx1ZW50IENsb3VkCiAgc2NyYXBlX2ludGVydmFsOiAxbQogIHNjcmFwZV90aW1lb3V0OiAxbQogIGhvbm9yX3RpbWVzdGFtcHM6IHRydWUKICBzdGF0aWNfY29uZmlnczoKICAgIC0gdGFyZ2V0czoKICAgICAgLSBhcGkudGVsZW1ldHJ5LmNvbmZsdWVudC5jbG91ZAogIHNjaGVtZTogaHR0cHMKICBiYXNpY19hdXRoOgogICAgdXNlcm5hbWU6IFRYSE03N0JLQzcyRVg0T1YKICAgIHBhc3N3b3JkOiArWTdQY2JlQjZJbzJsTnNUV21MZUVWamlwQVVaZUZiTXVabDY4Z1RwU0ZPNVBzTFNFZVM4a3dSeThBc1lhV2ZzCiAgbWV0cmljc19wYXRoOiAvdjIvbWV0cmljcy9jbG91ZC9leHBvcnQKICBwYXJhbXM6CiAgICByZXNvdXJjZS5rYWZrYS5pZDogWyJsa2MtZ3FqbWQxIl0KICAgIHJlc291cmNlLmNvbm5lY3Rvci5pZDogW10KICAgIHJlc291cmNlLmtzcWwuaWQ6IFtdCiAgICByZXNvdXJjZS5zY2hlbWFfcmVnaXN0cnkuaWQ6IFtdCg==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: additional-scrape-configs
+```
+
+```bash
+$  kubectl apply -f additional-scrape-configs.yaml                                                                       2.7.0
+secret/additional-scrape-configs configured
+```
+
+Deploy an updated version for the prometheus instance with the extra scrapper:
+
+```bash
+$ kubectl apply -f prometheus/prometheus-cloud.yaml                                                                      2.7.0
+prometheus.monitoring.coreos.com/prometheus configured
+```
+
+![Grafana Dashboard](../assets/img/grafana-ccloud.png "Grafana Confluent Cloud")
+
+
 ### References
 
 https://blog.container-solutions.com/prometheus-operator-beginners-guide

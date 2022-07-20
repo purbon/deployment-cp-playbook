@@ -7,11 +7,15 @@
       - api.telemetry.confluent.cloud
   scheme: https
   basic_auth:
-    username: changme
-    password: changme
+    username: changeme
+    password: changeme
   metrics_path: /v2/metrics/cloud/export
   params:
-    resource.kafka.id: ["changme"]
-    resource.connector.id: ["changme"]
-    resource.ksql.id: ["changme"]
-    resource.schema_registry.id: ["changme"]
+      "resource.kafka.id":
+        - changeme
+      "resource.schema_registry.id":
+        - changeme
+      "resource.ksql.id":
+        - changeme
+      "resource.connector.id":
+        - changeme
