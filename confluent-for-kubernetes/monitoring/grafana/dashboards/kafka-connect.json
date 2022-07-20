@@ -1,4 +1,59 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS-CP",
+      "label": "Prometheus-CP",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.0.2"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph (old)",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table-old",
+      "name": "Table (old)",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -25,8 +80,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 29,
-  "iteration": 1658238007159,
+  "id": null,
+  "iteration": 1658313201898,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -59,7 +114,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -105,7 +160,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -120,7 +175,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -166,7 +221,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -181,7 +236,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -231,7 +286,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -247,7 +302,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -297,7 +352,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -313,7 +368,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -363,7 +418,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -379,7 +434,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -429,7 +484,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -445,7 +500,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "",
       "fieldConfig": {
@@ -534,7 +589,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum (kafka_connect_connector_metrics{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status=\"running\"})",
           "instant": true,
@@ -545,7 +600,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum (kafka_connect_connector_metrics{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status=\"stopped\"})",
           "instant": true,
@@ -556,7 +611,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum (kafka_connect_connector_metrics{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status=\"paused\"})",
           "instant": true,
@@ -571,7 +626,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "",
       "fieldConfig": {
@@ -690,7 +745,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"connect\",instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -701,7 +756,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -712,7 +767,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -723,7 +778,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -734,7 +789,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "instant": true,
@@ -749,7 +804,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Status of connectors over time",
       "fieldConfig": {
@@ -893,7 +948,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum (kafka_connect_connector_metrics{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status!=\"\"}) by (status) ",
           "format": "time_series",
@@ -911,7 +966,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Status of tasks over time",
       "fieldConfig": {
@@ -1070,7 +1125,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "time_series",
@@ -1084,7 +1139,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "time_series",
@@ -1098,7 +1153,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "time_series",
@@ -1112,7 +1167,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "time_series",
@@ -1126,7 +1181,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum(kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "time_series",
@@ -1170,7 +1225,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1251,7 +1306,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1268,7 +1323,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1349,7 +1404,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "sum without(area)(jvm_memory_bytes_used{job=\"connect\", container=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"})",
@@ -1361,7 +1416,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "jvm_memory_bytes_max{job=\"connect\",container=~\"$kafka_connect_cluster_id\",instance=~\"$instance\",area=\"heap\"}",
@@ -1377,7 +1432,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1460,7 +1515,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"connect\", container=~\"$kafka_connect_cluster_id\",instance=~\"$instance\"}[5m]))",
@@ -1503,7 +1558,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fontSize": "90%",
       "gridPos": {
@@ -1869,7 +1924,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_app_info_start_time_ms{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\"}",
           "format": "table",
@@ -1882,7 +1937,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (instance) (kafka_connect_connect_worker_metrics_connector_count{job=\"connect\", instance=~\"$instance\"})",
           "format": "table",
@@ -1894,7 +1949,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (instance) (kafka_connect_connect_worker_metrics_connector_startup_success_total{job=\"connect\", instance=~\"$instance\"})",
           "format": "table",
@@ -1906,7 +1961,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (instance) (kafka_connect_connect_worker_metrics_connector_startup_failure_total{job=\"connect\", instance=~\"$instance\"})",
           "format": "table",
@@ -1918,7 +1973,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (instance) (kafka_connect_connect_worker_metrics_task_count{job=\"connect\",instance=~\"$instance\"})",
           "format": "table",
@@ -1930,7 +1985,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (instance) (kafka_connect_connect_worker_metrics_task_startup_success_total{job=\"connect\",instance=~\"$instance\"})",
           "format": "table",
@@ -1942,7 +1997,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (instance) (kafka_connect_connect_worker_metrics_task_startup_failure_total{job=\"connect\",instance=~\"$instance\"})",
           "format": "table",
@@ -1964,7 +2019,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Average number of network operations (reads or writes) on all connections per second",
       "fieldConfig": {
@@ -2012,7 +2067,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_network_io_rate{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2061,7 +2116,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Bytes per second read off all sockets",
       "fieldConfig": {
@@ -2109,7 +2164,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_incoming_byte_rate{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2158,7 +2213,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Average number of outgoing bytes sent per second to all servers",
       "fieldConfig": {
@@ -2206,7 +2261,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_outgoing_byte_rate{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2255,7 +2310,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Current number of active connections",
       "fieldConfig": {
@@ -2303,7 +2358,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_connection_count{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2353,7 +2408,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Connections that failed authentication",
       "fieldConfig": {
@@ -2401,7 +2456,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_failed_authentication_total{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2451,7 +2506,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Connections that were successfully authenticated using SASL or SSL",
       "fieldConfig": {
@@ -2499,7 +2554,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_successful_authentication_rate{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2549,7 +2604,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Average number of requests sent per second",
       "fieldConfig": {
@@ -2597,7 +2652,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_request_rate{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2646,7 +2701,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Responses received and sent per second",
       "fieldConfig": {
@@ -2694,7 +2749,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_response_rate{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2743,7 +2798,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Fraction of time the I/O thread spent doing I/O",
       "fieldConfig": {
@@ -2791,7 +2846,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_metrics_io_ratio{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",client_id!=\"\"}",
@@ -2863,7 +2918,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "fontSize": "110%",
       "gridPos": {
@@ -3273,7 +3328,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "label_replace(label_replace(label_replace(kafka_connect_connector_info{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",status!=\"\"}, \"status\", \"1\", \"status\", \"running\"), \"status\", \"2\", \"status\", \"paused\"), \"status\", \"3\", \"status\", \"stopped\")",
           "format": "table",
@@ -3286,7 +3341,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_info{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_type!=\"\"}",
           "format": "table",
@@ -3298,7 +3353,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_info{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_version!=\"\"}",
           "format": "table",
@@ -3311,7 +3366,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_info{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",connector_class!=\"\"}",
           "format": "table",
@@ -3323,7 +3378,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
@@ -3336,7 +3391,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_running_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
@@ -3348,7 +3403,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_failed_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
@@ -3360,7 +3415,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_paused_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
@@ -3372,7 +3427,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_destroyed_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
@@ -3384,7 +3439,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "sum by (connector) (kafka_connect_connect_worker_metrics_connector_unassigned_task_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"})",
           "format": "table",
@@ -3428,7 +3483,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Rebalances average time",
       "fieldConfig": {
@@ -3471,8 +3526,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3512,7 +3566,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "editorMode": "code",
           "expr": "kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\"}",
@@ -3531,7 +3585,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Time since last rebalance",
       "fieldConfig": {
@@ -3552,8 +3606,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
-                "value": null
+                "color": "#299c46"
               }
             ]
           },
@@ -3596,7 +3649,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\"} >= 0",
           "format": "time_series",
@@ -3639,7 +3692,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Average size of the batches processed by the connector",
       "fieldConfig": {
@@ -3681,8 +3734,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3722,7 +3774,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_task_metrics_batch_size_avg{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -3738,7 +3790,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Maximum size of the batches processed by the connector",
       "fieldConfig": {
@@ -3780,8 +3832,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3821,7 +3872,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_task_metrics_batch_size_max{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -3837,7 +3888,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Average percentage of the task’s offset commit attempts that succeeded",
       "fieldConfig": {
@@ -3881,8 +3932,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3922,7 +3972,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_task_metrics_offset_commit_success_percentage{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -3938,7 +3988,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The average time in milliseconds taken by this task to commit offsets",
       "fieldConfig": {
@@ -3980,8 +4030,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4021,7 +4070,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_task_metrics_offset_commit_avg_time_ms{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4037,7 +4086,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The fraction of time this task has spent in the running state.",
       "fieldConfig": {
@@ -4081,8 +4130,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4122,7 +4170,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_connector_task_metrics_running_ratio{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4165,7 +4213,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Total number of failures seen by task",
       "fieldConfig": {
@@ -4209,8 +4257,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4250,7 +4297,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_total_record_failures{job=\"connect\", instance=~\"$instance\", container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4266,7 +4313,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Total number of errors seen by task",
       "fieldConfig": {
@@ -4310,8 +4357,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4351,7 +4397,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_total_record_errors{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4367,7 +4413,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Total number of records skipped by task",
       "fieldConfig": {
@@ -4411,8 +4457,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4452,7 +4497,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_total_records_skipped{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4468,7 +4513,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The number of messages that was logged into either the dead letter queue or with Log4j",
       "fieldConfig": {
@@ -4512,8 +4557,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4553,7 +4597,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_total_errors_logged{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4569,7 +4613,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Total number of retries made by task",
       "fieldConfig": {
@@ -4613,8 +4657,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4654,7 +4697,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_total_retries{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4670,7 +4713,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Number of produce requests to the dead letter queue",
       "fieldConfig": {
@@ -4714,8 +4757,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4755,7 +4797,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4771,7 +4813,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "Number of produce requests to the dead letter queue",
       "fieldConfig": {
@@ -4815,8 +4857,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4856,7 +4897,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\"}",
           "format": "time_series",
@@ -4898,7 +4939,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The average time in milliseconds taken by this task to poll for a batch of source records",
       "fieldConfig": {
@@ -4940,8 +4981,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4981,7 +5021,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_source_task_metrics_poll_batch_avg_time_ms{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -4998,7 +5038,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The maximum time in milliseconds taken by this task to poll for a batch of source records",
       "fieldConfig": {
@@ -5040,8 +5080,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5081,7 +5120,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_source_task_metrics_poll_batch_max_time_ms{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5099,7 +5138,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The average per-second number of records produced/polled (before transformation) by this task belonging to the named source connector in this worker.",
       "fieldConfig": {
@@ -5141,8 +5180,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5182,7 +5220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_source_task_metrics_source_record_poll_rate{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5199,7 +5237,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The average per-second number of records output from the transformations and written to Kafka for this task belonging to the named source connector in this worker. This is after transformations are applied and excludes any records filtered out by the transformations.",
       "fieldConfig": {
@@ -5241,8 +5279,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5282,7 +5319,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_source_task_metrics_source_record_write_rate{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5299,7 +5336,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The average number of records that have been produced by this task but not yet completely written to Kafka.",
       "fieldConfig": {
@@ -5341,8 +5378,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5382,7 +5418,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_source_task_metrics_source_record_active_count_avg{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5399,7 +5435,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The maximum number of records that have been produced by this task but not yet completely written to Kafka.",
       "fieldConfig": {
@@ -5441,8 +5477,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5482,7 +5517,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_source_task_metrics_source_record_active_count_max{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5525,7 +5560,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The number of topic partitions assigned to this task belonging to the named sink connector in this worker.",
       "fieldConfig": {
@@ -5568,8 +5603,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5605,7 +5639,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_sink_task_metrics_partition_count{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5622,7 +5656,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The average time in milliseconds taken by this task to put a batch of sinks records",
       "fieldConfig": {
@@ -5664,8 +5698,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5701,7 +5734,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_sink_task_metrics_put_batch_avg_time_ms{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5719,7 +5752,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "DEHrepgVz"
+        "uid": "${DS_PROMETHEUS-CP}"
       },
       "description": "The maximum time in milliseconds taken by this task to put a batch of sinks records",
       "fieldConfig": {
@@ -5761,8 +5794,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5798,7 +5830,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "DEHrepgVz"
+            "uid": "${DS_PROMETHEUS-CP}"
           },
           "expr": "kafka_connect_sink_task_metrics_put_batch_max_time_ms{job=\"connect\", instance=~\"$instance\",container=~\"$kafka_connect_cluster_id\",connector=~\"$connector\",task!=\"\"}",
           "format": "time_series",
@@ -5822,18 +5854,10 @@
     "list": [
       {
         "allValue": ".+",
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "DEHrepgVz"
+          "uid": "${DS_PROMETHEUS-CP}"
         },
         "definition": "label_values(container)",
         "hide": 0,
@@ -5856,14 +5880,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "DEHrepgVz"
+          "uid": "${DS_PROMETHEUS-CP}"
         },
         "definition": "label_values(kafka_connect_app_info_start_time_ms{job=\"connect\",container=~\"$kafka_connect_cluster_id\"},instance)",
         "hide": 0,
@@ -5886,18 +5906,10 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "DEHrepgVz"
+          "uid": "${DS_PROMETHEUS-CP}"
         },
         "definition": "label_values(kafka_connect_connector_task_metrics_pause_ratio{job=\"connect\",container=~\"$kafka_connect_cluster_id\"},connector)",
         "hide": 0,
@@ -5922,7 +5934,7 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -5953,6 +5965,6 @@
   "timezone": "",
   "title": "Kafka Connect cluster",
   "uid": "AEaSQ97mz",
-  "version": 11,
+  "version": 3,
   "weekStart": ""
 }
