@@ -164,6 +164,12 @@ prom-operator
 
 Note once into Grafana, you will need to deploy the data sources and dashboards, they are in the grafana folder in this repo.
 
+
+![Prometheus Dashboard](../assets/img/prometheus.png "Prometheus")
+
+![Grafana Dashboard](../assets/img/grafana.png "Grafana")
+
+
 You can create a connector to generate traffic in the deployment:
 
 ```bash
