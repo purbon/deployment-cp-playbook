@@ -6,6 +6,7 @@ Two main sections,
 
 * Confluent for Kubernetes (CFK Operator)
 * CP Ansible
+* Strimzi
 
 
 This playbooks are always work in progress.
