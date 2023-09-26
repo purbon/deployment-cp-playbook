@@ -22,6 +22,9 @@ spec:
           - RULE:.*CN[\\s]?=[\\s]?([a-zA-Z0-9.]*)?.*/$1/
       tls:
         enabled: true
+    custom:
+     - name: publiccustom1
+       port: 9205
     external:
       authentication:
         type: mtls

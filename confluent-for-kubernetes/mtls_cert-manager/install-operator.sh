@@ -9,3 +9,7 @@ kubens confluent
 helm upgrade --install operator confluentinc/confluent-for-kubernetes --namespace confluent
 
 kubectl get pods
+
+## deploy secrets
+
+kubectl create secret generic basicsecret --from-file=basic.txt=./resources/basic.txt 
