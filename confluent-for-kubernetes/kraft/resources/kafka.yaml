@@ -27,9 +27,18 @@ metadata:
   namespace: confluent
 spec:
   configOverrides:
+    log4j:
+      - log4j.logger.org.apache.kafka.metadata.authorizer.StandardAuthorizer=DEBUG
     server: #This config override is required for CP 7.0 update to use AclAuthorizer instead of SimpleAclAuthorizer
       - authorizer.class.name=org.apache.kafka.metadata.authorizer.StandardAuthorizer
-  listeners:
+  listeners:   
+    internal:
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: credential
+      tls:
+        enabled: true
     external:
       authentication:
         type: plain
@@ -41,7 +50,7 @@ spec:
     type: simple
     superUsers:
       - User:kafka
-      - User:ANONYMOUS
+      - User:connect
   dependencies:
     kRaftController:
       controllerListener:

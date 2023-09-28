@@ -18,3 +18,16 @@ kubectl create -n confluent secret generic credential \
     --from-file=plain.txt=./secrets/plain.txt \
     --from-file=plain-users.json=./secrets/plain-users.json \
     --from-file=basic.txt=./secrets/basic.txt
+
+
+kubectl create secret generic credential \
+  --save-config \
+  --dry-run=client \
+  --from-file=plain.txt=./secrets/plain.txt \
+  --from-file=plain-users.json=./secrets/plain-users.json \
+  --from-file=basic.txt=./secrets/basic.txt \
+  -o yaml | kubectl apply -f -
+
+
+kubectl create -n confluent secret generic connect-credential \
+    --from-file=plain.txt=./secrets/connect-plain.txt
