@@ -1,0 +1,39 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: confluent
+spec:
+  replicas: 2
+  image:
+    application: confluentinc/cp-server-connect:7.5.0
+    init: confluentinc/confluent-init-container:2.3.0
+  tls:
+    secretRef: connect-tls
+  externalAccess:
+    type: loadBalancer
+    loadBalancer:
+      domain: my.domain
+      prefix: rb-connect
+  authorization:
+    type: rbac
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka.confluent.svc.cluster.local:9071
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: credential
+      tls:
+        enabled: true
+    mds:
+      endpoint: https://kafka.confluent.svc.cluster.local:8090
+      tokenKeyPair:
+        secretRef: mds-token
+      authentication:
+        type: bearer
+        bearer:
+          secretRef: connect-mds-client
+      tls:
+        enabled: true

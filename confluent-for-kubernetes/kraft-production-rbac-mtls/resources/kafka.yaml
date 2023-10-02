@@ -1,0 +1,106 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KRaftController
+metadata:
+  name: kraftcontroller
+  namespace: confluent
+spec:
+  dataVolumeCapacity: 100G
+  image:
+    application: docker.io/confluentinc/cp-server:7.5.0
+    init: confluentinc/confluent-init-container:2.7.0
+  listeners:
+    controller:
+      tls:
+        enabled: true
+      authentication:
+        type: mtls
+        principalMappingRules:
+          - RULE:.*CN[\\s]?=[\\s]?([a-zA-Z0-9.]*)?.*/$1/
+  tls:
+    secretRef: kafka-tls
+  replicas: 3
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: confluent
+spec:
+  #configOverrides:
+  #  log4j:
+  #    - log4j.logger.org.apache.kafka.metadata.authorizer.StandardAuthorizer=DEBUG
+    #server: #This config override is required for CP 7.0 update to use AclAuthorizer instead of SimpleAclAuthorizer
+    #  - authorizer.class.name=org.apache.kafka.metadata.authorizer.StandardAuthorizer
+  tls:
+    secretRef: kafka-tls
+  listeners:
+    internal:
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: credential
+      tls:
+        enabled: true
+        secretRef: kafka-tls
+    external:
+      authentication:
+        type: mtls
+        principalMappingRules:
+          - RULE:.*CN[\\s]?=[\\s]?([a-zA-Z0-9.]*)?.*/$1/
+      tls:
+        enabled: true
+        secretRef: kafka-tls
+  authorization:
+    type: rbac
+    superUsers:
+      - User:kafka
+  services:
+    mds:
+      tls:
+        enabled: true
+      tokenKeyPair:
+        secretRef: mds-token
+      externalAccess:
+        type: loadBalancer
+        loadBalancer:
+          domain: my.domain
+          prefix: rb-mds
+      provider:
+        type: ldap
+        ldap:
+          address: ldap://ldap.confluent.svc.cluster.local:389
+          authentication:
+            type: simple
+            simple:
+              secretRef: credential
+          configurations:
+            groupNameAttribute: cn
+            groupObjectClass: group
+            groupMemberAttribute: member
+            groupMemberAttributePattern: CN=(.*),DC=test,DC=com
+            groupSearchBase: dc=test,dc=com
+            userNameAttribute: cn
+            userMemberOfAttributePattern: CN=(.*),DC=test,DC=com
+            userObjectClass: organizationalRole
+            userSearchBase: dc=test,dc=com
+  dependencies:
+    kafkaRest:
+        authentication:
+          type: bearer
+          bearer:
+            secretRef: mds-client
+    kRaftController:
+      controllerListener:
+        tls:
+          enabled: true
+        authentication:
+          type: mtls
+          principalMappingRules:
+            - RULE:.*CN[\\s]?=[\\s]?([a-zA-Z0-9.]*)?.*/$1/
+      clusterRef:
+        name: kraftcontroller
+  dataVolumeCapacity: 100G
+  image:
+    application: docker.io/confluentinc/cp-server:7.5.0
+    init: confluentinc/confluent-init-container:2.7.0
+  replicas: 3
