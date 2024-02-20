@@ -1,0 +1,121 @@
+# Default values for cp-control-center.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: confluentinc/cp-enterprise-control-center
+  pullPolicy: IfNotPresent
+  tag: "7.5.0"
+
+imagePullSecrets: 
+nameOverride: ""
+fullnameOverride: "cp2-control-center"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+#  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+#  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+#service:
+#  type: ClusterIP
+#  port: 80
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+jmx:
+  port: 5555
+
+prometheus:
+  ## JMX Exporter Configuration
+  ## ref: https://github.com/prometheus/jmx_exporter
+  jmx:
+    enabled: true
+    image: solsson/kafka-prometheus-jmx-exporter@sha256
+    imageTag: 6f82e2b0464f50da8104acd7363fb9b995001ddff77d248379f8788e78946143
+    port: 5556
+
+kafka:
+  bootstrapServers: "kafka:9073"
+
+cpSchemaRegistry:
+  url: ""
+
+cpKafkaConnect:
+  url: ""
+
+c3:
+  metadata:
+      bootstrapServers: "https://kafka.confluent.svc.cluster.local:8090"
+      basicAuthInfo: "c3:c3-secret" 
+
+serviceHttpPort: 9021
+
+configurationOverrides:
+  "id": "0"
+  "replication.factor": "3"
+  "internal.topics.partitions": "1"
+  "streams.security.protocol": "SASL_SSL"
+  "streams.sasl.mechanism": "OAUTHBEARER"
+  "streams.ssl.truststore.location": "/mnt/sslcerts/truststore.p12"
+  "streams.ssl.truststore.password": "mystorepassword"
+  "streams.cprest.url": "https://kafka.confluent.svc.cluster.local:8090"
+  "streams.sasl.login.callback.handler.class": "io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler"
+  "streams.sasl.jaas.config": "org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls=\"https://kafka.confluent.svc.cluster.local:8090\" username=\"c3\" password=\"c3-secret\";"
+  "monitoring.interceptor.topic.partitions": "1"
+  "metrics.topic.replication": "2"
+  "metrics.topic.partitions": "1"
+  "rest.listeners": "https://0.0.0.0:9021"
+  "rest.authentication.method": "BEARER"
+  "schema.registry.enable": "false"
+  "ssl.endpoint.identification.algorithm": ""
+  "rest.ssl.enabled.protocols": "TLSv1.2"
+  "rest.ssl.key.password": "mystorepassword"
+  "rest.ssl.keystore.location": "/mnt/sslcerts/keystore.p12"
+  "rest.ssl.keystore.password": "mystorepassword"
+  "rest.ssl.truststore.location": "/mnt/sslcerts/truststore.p12"
+  "rest.ssl.truststore.password": "mystorepassword"
+  "rest.authentication.skip.paths": "/2.0/status/app_info"
+  "name": "_confluent-controlcenter2"
+  

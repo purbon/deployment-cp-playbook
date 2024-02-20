@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cp-control-center.fullname" . }}
+  labels:
+    app: {{ template "cp-control-center.name" . }}
+    chart: {{ template "cp-control-center.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - name: cc-http
+      port: 443
+      targetPort: {{ .Values.serviceHttpPort }}
+  type: LoadBalancer
+  selector:
+    app: {{ template "cp-control-center.name" . }}
+    release: {{ .Release.Name }}

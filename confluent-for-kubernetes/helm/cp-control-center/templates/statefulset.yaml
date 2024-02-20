@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "cp-control-center.fullname" . }}
+  labels:
+    chart: {{ include "cp-control-center.chart" . }}
+    {{- include "cp-control-center.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: "cp2-control-center"
+  selector:
+    matchLabels:
+      {{- include "cp-control-center.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "cp-control-center.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: in-ssl-controlcenter-pkcs12
+          secret:
+             secretName: controlcenter-pkcs12
+        - name: ref-token-mds-token
+          secret:
+             secretName: mds-token
+        - name: ref-auth-c3-mds-client
+          secret:
+             secretName: c3-mds-client
+        #- name: data0
+        #  persistentVolumeClaim:
+        #    claimName: pvc-c3
+      serviceAccountName: {{ include "cp-control-center.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: cc-http
+              containerPort: {{ .Values.serviceHttpPort}}
+              protocol: TCP
+          #livenessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: cc-http
+          #readinessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: cc-http
+          volumeMounts:
+            - name: in-ssl-controlcenter-pkcs12
+              readOnly: true 
+              mountPath: /mnt/sslcerts
+            - name: ref-auth-c3-mds-client
+              readOnly: true 
+              mountPath: /mnt/secrets/c3-mds-client
+            - name: ref-token-mds-token
+              readOnly: true 
+              mountPath: /mnt/secrets/mds-token
+            #- name: data0
+            #  mountPath: /mnt/data/data0
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          env:
+            - name: CONTROL_CENTER_BOOTSTRAP_SERVERS
+              value: {{ .Values.kafka.bootstrapServers }}
+            - name: CONTROL_CENTER_CONNECT_CLUSTER
+              value: {{ .Values.cpKafkaConnect.url }}
+            - name: CONTROL_CENTER_SCHEMA_REGISTRY_URL
+              value: {{ .Values.cpSchemaRegistry.url }}
+            - name: CONFLUENT_METADATA_BOOTSTRAP_SERVER_URLS
+              value: {{ .Values.c3.metadata.bootstrapServers }}
+            - name: CONFLUENT_METADATA_BASIC_AUTH_USER_INFO
+              value: {{ .Values.c3.metadata.basicAuthInfo }}    
+            - name: CONTROL_CENTER_LOG4J_ROOT_LOGLEVEL
+              value: INFO
+            - name: CUB_CLASSPATH
+              value: "/usr/share/java/confluent-control-center/*:/usr/share/java/rest-utils/*:/usr/share/java/confluent-common/*:/usr/share/java/confluent-security/kafka-rest/*:/usr/share/java/kafka-rest/:/usr/share/java/cp-base-new/*"        
+            - name: PUBLIC_KEY_PATH
+              value: "/mnt/secrets/mds-token/mdsPublicKey.pem"
+            - name: PORT
+              value: "9021"
+            - name: KAFKA_HEAP_OPTS
+              value: "{{ .Values.heapOptions }}"
+            {{- range $key, $value := .Values.configurationOverrides }}
+            - name: {{ printf "CONTROL_CENTER_%s" $key | replace "." "_" | upper | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- range $key, $value := .Values.customEnv }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}            
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,8 @@
+apiVersion: v2
+name: cp-control-center
+description: A Helm chart for installing Confluent Control Center on Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#type: application
+version: 0.1.0
+appVersion: "7.6.0"

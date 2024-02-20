@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "cp-control-center.fullname" . }}-test-connection"
+  labels:
+    {{- include "cp-control-center.labels" . | nindent 4 }}
+    app: {{ include "cp-control-center.name" . }}
+    chart: {{ include "cp-control-center.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "cp-control-center.fullname" . }}:{{ .Values.serviceHttpPort }}']
+  restartPolicy: Never
