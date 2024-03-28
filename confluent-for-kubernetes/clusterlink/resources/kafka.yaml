@@ -1,0 +1,43 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: confluent
+spec:
+  replicas: 5
+  image:
+    application: confluentinc/cp-server:7.6.0
+    init: confluentinc/confluent-init-container:2.8.0
+  dataVolumeCapacity: 100Gi
+  tls:
+    secretRef: tls-kafka
+  listeners:
+    internal:
+      authentication:
+          type: plain
+          jaasConfig:
+            secretRef: credential
+    external:
+      authentication:
+        type: mtls
+      tls:
+        enabled: true
+  services:
+    kafkaRest:
+      authentication:
+        type: basic
+        basic:
+          secretRef: credential
+          roles:
+            - Administrators
+  passwordEncoder:
+    secretRef: password-encoder-secret
+  ## dependencies are not required, will have default set
+  dependencies:
+    zookeeper:
+      endpoint: zookeeper.confluent.svc.cluster.local:2182
+      authentication:
+        type: mtls
+      tls:
+        enabled: true

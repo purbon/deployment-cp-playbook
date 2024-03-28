@@ -1,0 +1,32 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: confluent
+spec:
+  replicas: 2
+  image:
+    application: confluentinc/cp-server-connect:7.6.0
+    init: confluentinc/confluent-init-container:2.7.0
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: kafka-connect-s3
+            owner: confluentinc
+            version: 10.5.9
+          - name: kafka-connect-datagen
+            owner: confluentinc
+            version: 0.6.5
+  mountedSecrets:
+    - secretRef: s3-credentials
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka.confluent.svc.cluster.local:9071
+      authentication:
+          type: plain
+          jaasConfig:
+            secretRef: credential

@@ -1,0 +1,31 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: ClusterLink
+metadata:
+  name: clusterlinking-source
+  namespace: confluent
+spec:
+  name: clusterlinking
+  sourceInitiatedLink:
+    linkMode: Source
+  destinationKafkaCluster:
+    kafkaRestClassRef:
+      name: krc-cloud
+      namespace: confluent
+    authentication:
+      type: plain
+      jaasConfigPassThrough:
+        secretRef: jaasconfig-ccloud
+    tls:
+      enabled: true
+      secretRef: ccloud-tls-certs
+    bootstrapEndpoint: pkc-dopkmo.europe-west3.gcp.confluent.cloud:9092
+  sourceKafkaCluster:
+    bootstrapEndpoint: kafka.confluent.svc.cluster.local:9071
+    authentication:
+        type: plain
+        jaasConfig:
+          secretRef: credential
+    kafkaRestClassRef:
+      name: my-kafka-rest
+      namespace: confluent
