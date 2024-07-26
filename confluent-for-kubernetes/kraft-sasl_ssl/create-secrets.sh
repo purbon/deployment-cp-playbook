@@ -31,3 +31,7 @@ kubectl create secret generic credential \
 
 kubectl create -n confluent secret generic connect-credential \
     --from-file=plain.txt=./secrets/connect-plain.txt
+
+
+kubectl create secret generic confluent-license2 \
+  --from-file=license.txt=./secrets/license.txt 
