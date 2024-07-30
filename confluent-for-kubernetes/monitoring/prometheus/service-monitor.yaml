@@ -1,10 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: prometheus
+  name: confluent
   namespace: monitoring
   labels:
-    name: prometheus
+    onfluent-platform: "true"
 spec:
   selector:
     matchLabels:

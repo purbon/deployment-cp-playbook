@@ -6,7 +6,9 @@ kubectl create namespace confluent
 
 kubens confluent
 
-helm upgrade --install operator confluentinc/confluent-for-kubernetes --namespace confluent
+helm upgrade --install operator confluentinc/confluent-for-kubernetes \
+             --namespace confluent \
+            --set debug="true"
 
 kubectl get pods
 

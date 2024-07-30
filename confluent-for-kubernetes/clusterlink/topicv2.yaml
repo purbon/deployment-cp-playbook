@@ -1,0 +1,13 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: demo-topicv2
+  namespace: confluent
+spec:
+  replicas: 3
+  partitionCount: 4
+  configs:
+    cleanup.policy: "delete"
+  kafkaRestClassRef:
+    name:  my-kafka-restv2

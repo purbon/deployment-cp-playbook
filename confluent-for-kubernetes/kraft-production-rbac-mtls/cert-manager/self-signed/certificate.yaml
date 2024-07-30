@@ -26,6 +26,9 @@ spec:
   commonName: controlcenter
   dnsNames:
     - controlcenter
+    - cp2-control-center
+    - cp2-control-center.$(NAMESPACE)
+    - cp2-control-center.$(NAMESPACE).svc.cluster.local
     - controlcenter.$(NAMESPACE)
     - controlcenter.$(NAMESPACE).svc.cluster.local
     - '*.$(NAMESPACE).svc.cluster.local'

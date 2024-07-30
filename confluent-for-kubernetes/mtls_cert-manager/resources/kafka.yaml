@@ -15,13 +15,13 @@ spec:
   tls:
     secretRef: kafka-tls
   listeners:
-    internal:
-      authentication:
-        type: mtls
-        principalMappingRules:
-          - RULE:.*CN[\\s]?=[\\s]?([a-zA-Z0-9.]*)?.*/$1/
-      tls:
-        enabled: true
+ #   internal:
+ #     authentication:
+ #       type: mtls
+ #       principalMappingRules:
+ #         - RULE:.*CN[\\s]?=[\\s]?([a-zA-Z0-9.]*)?.*/$1/
+ #     tls:
+ #       enabled: true
     custom:
      - name: publiccustom1
        port: 9205
@@ -41,6 +41,7 @@ spec:
   authorization:
     type: simple
     superUsers:
+      - User:ANONYMOUS
       - User:kafka
       - User:controlcenter
       - User:connect

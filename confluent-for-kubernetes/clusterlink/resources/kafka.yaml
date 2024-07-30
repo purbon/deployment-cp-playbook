@@ -13,6 +13,15 @@ spec:
   tls:
     secretRef: tls-kafka
   listeners:
+    custom:
+    - name: internaltls
+      port: 9204
+      authentication:
+        type: mtls
+        principalMappingRules:
+            - RULE:^CN=([a-zA-Z0-9]*).*$/$1/
+      tls:
+        enabled: true
     internal:
       authentication:
           type: plain

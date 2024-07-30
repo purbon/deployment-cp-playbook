@@ -1,0 +1,15 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaRestClass
+metadata:
+  name: my-kafka-restv2
+  namespace: confluent
+spec:
+  kafkaClusterRef:
+    name: kafka
+  kafkaRest:
+    endpoint: https://kafkav2.confluent.svc.cluster.local:8090
+    authentication:
+      type: mtls
+    tls:
+      secretRef: tls-kafka

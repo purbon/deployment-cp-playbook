@@ -1,0 +1,19 @@
+{
+  "id": 1,
+  "uid": "promsys",
+  "orgId": 1,
+  "name": "Prometheus",
+  "type": "prometheus",
+  "typeName": "Prometheus",
+  "typeLogoUrl": "public/app/plugins/datasource/prometheus/img/prometheus_logo.svg",
+  "access": "proxy",
+  "url": "http://confluentmon-kube-promethe-prometheus.monitoring:9090/",
+  "user": "",
+  "database": "",
+  "basicAuth": false,
+  "isDefault": true,
+  "jsonData": {
+    "timeInterval": "30s"
+  },
+  "readOnly": true
+}

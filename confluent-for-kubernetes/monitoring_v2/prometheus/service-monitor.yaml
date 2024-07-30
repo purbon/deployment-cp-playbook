@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kafka
+  namespace: confluent
+  labels:
+    name: confluent
+spec:
+  selector:
+    matchExpressions:
+      - key: confluent-platform
+        operator: Exists
+  namespaceSelector:
+    matchNames:
+    - confluent
+  endpoints:
+    - port: "7778"
+      interval: 10s
+

@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: kafka
+  labels:
+    name: confluent
+spec:
+  namespaceSelector:
+    matchNames:
+      - confluent
+  selector:
+    matchLabels:
+      confluent-platform: "true"
+  podMetricsEndpoints:
+  - targetPort: 7778

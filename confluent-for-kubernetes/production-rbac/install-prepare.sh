@@ -16,6 +16,24 @@ helm upgrade --install -f ../assets/openldap/ldaps-rbac.yaml test-ldap ../assets
 
 ### TLS
 export MY_HOME=$(pwd)
+
+### autogenerate
+
+openssl genrsa -out $MY_HOME/ca-key.pem 2048
+
+openssl req -new -key $MY_HOME/ca-key.pem -x509 \
+  -days 1000 \
+  -out $MY_HOME/ca.pem \
+  -subj "/C=US/ST=CA/L=MountainView/O=Confluent/OU=Operator/CN=TestCA"
+
+
+kubectl create secret tls ca-pair-sslcerts \
+  --cert=$MY_HOME/ca.pem \
+  --key=$MY_HOME/ca-key.pem -n confluent
+
+
+## provided 
+
 kubectl create secret generic tls-group1 \
   --from-file=fullchain.pem=$MY_HOME/../assets/certs/generated/server.pem \
   --from-file=cacerts.pem=$MY_HOME/../assets/certs/generated/ca.pem \
