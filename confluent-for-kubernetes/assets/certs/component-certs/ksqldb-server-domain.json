@@ -5,7 +5,8 @@
     "ksqldb.mydomain.example",
     "ksqldb.confluent.svc.cluster.local",
     "ksqldb.kafka-sasl-ssl-user.svc.cluster.local",
-    "ksqldb.kafka-sasl-ssl.svc.cluster.local"
+    "ksqldb.kafka-sasl-ssl.svc.cluster.local",
+    "ksqldb.ccloud-ksql.svc.cluster.local"
   ],
   "key": {
     "algo": "rsa",
