@@ -20,6 +20,9 @@ spec:
   configOverrides:
     server:
       - confluent.metrics.topic.max.message.bytes=8388608  
+      - confluent.controlcenter.schema.registry.enable=false
+    #log4j:
+    #  - log4j.rootLogger=DEBUG, stdout
   dependencies:
     kafka:
       bootstrapEndpoint: pkc-z9doz.eu-west-1.aws.confluent.cloud:9092
@@ -38,9 +41,9 @@ spec:
           secretRef: cloud-sr-access
     ksqldb:
     - name: ksql-dev
-      url: https://ksqldb.ccloud-ksql.svc.cluster.local:8088
+      url: http://ksqldb.ccloud-ksql.svc.cluster.local:8088
       tls:
-        enabled: true
+        enabled: false
     connect:
     - name: connect-dev
       url:  https://connect.ccloud-ksql.svc.cluster.local:8083
