@@ -1,0 +1,27 @@
+---
+# rolebinding `testuser1-cfrb-kafka` allows `testuser1` to see kafka cluster
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: testuser1-cfrb-kafka
+  namespace: confluent
+spec:
+  principal:
+    name: Wtf7tYOqlvstWUt70ABkxUID0jKg1aPHg2wy56_btY0 # from identity token
+    type: user
+  role: ClusterAdmin
+---
+# rolebinding `user-rb` allows group `/g1` to see kafkaCluster
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: user-rb
+  namespace: confluent
+spec:
+  principal:
+    type: group
+    name: 811f350f-519b-48a3-9271-fd097e962faa
+  role: ClusterAdmin
+  ## if use other kafkaRestClass except for default, need to configure accordingly
+  #kafkaRestClassRef:
+  # name: default
